@@ -1,0 +1,30 @@
+/**
+* Template Name: NiceAdmin
+* Updated: Jul 27 2023 with Bootstrap v5.3.1
+* Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
+*/
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+@font-face {
+    font-family: "KhmerOS_muollight";
+    src: url('/fonts/KhmerOS_muollight.ttf');
+}
+
+@font-face {
+    font-family: "KhmerOS";
+    src: url('/fonts/KhmerOS.ttf');
+}
+
+@font-face {
+    font-family: "KhmerOS_battambang";
+    src: url('/fonts/KhmerOS_battambang.ttf');
+}
+
+@font-face {
+    font-family: "KhmerOS_siemreap";
+    src: url('/fonts/KhmerOS_siemreap.ttf');
+}
