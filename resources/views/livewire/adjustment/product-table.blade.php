@@ -19,12 +19,12 @@
             <thead>
             <tr class="align-middle">
                 <th class="align-middle">#</th>
-                <th class="align-middle">Product Name</th>
-                <th class="align-middle">Code</th>
-                <th class="align-middle">Stock</th>
-                <th class="align-middle">Quantity</th>
-                <th class="align-middle">Type</th>
-                <th class="align-middle">Action</th>
+                <th class="align-middle">{{ __('Product Name') }}</th>
+                <th class="align-middle">{{ __('Code') }}</th>
+                <th class="align-middle">{{ __('Stock') }}</th>
+                <th class="align-middle">{{ __('Quantity') }}</th>
+                <th class="align-middle">{{ __('Type') }}</th>
+                <th class="align-middle">{{ __('Action') }}</th>
             </tr>
             </thead>
             <tbody>

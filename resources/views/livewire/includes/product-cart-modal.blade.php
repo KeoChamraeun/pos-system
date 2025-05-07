@@ -31,10 +31,10 @@
                         </div>
                     @endif
                     <div class="form-group">
-                        <label>Discount Type <span class="text-danger">*</span></label>
+                        <label>{{ __('Discount Type') }}<span class="text-danger">*</span></label>
                         <select wire:model.live="discount_type.{{ $cart_item->id }}" class="form-control" required>
                             <option value="fixed">Fixed</option>
-                            <option value="percentage">Percentage</option>
+                            <option value="percentage">{{ __('Percentage') }}</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
                     <button wire:click="setProductDiscount('{{ $cart_item->rowId }}', {{ $cart_item->id }})" type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>

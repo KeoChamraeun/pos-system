@@ -4,9 +4,9 @@
 
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Products</a></li>
-        <li class="breadcrumb-item active">Details</li>
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('products.index') }}">{{ __('Products') }}</a></li>
+        <li class="breadcrumb-item active">{{ __('Details') }}</li>
     </ol>
 @endsection
 
@@ -24,50 +24,50 @@
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped mb-0">
                                 <tr>
-                                    <th>Product Code</th>
+                                    <th>{{ __('Product Code') }}</th>
                                     <td>{{ $product->product_code }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Barcode Symbology</th>
+                                    <th>{{ __('Barcode Symbology') }}</th>
                                     <td>{{ $product->product_barcode_symbology }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>{{ __('Name') }}</th>
                                     <td>{{ $product->product_name }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Category</th>
+                                    <th>{{ __('Category') }}</th>
                                     <td>{{ $product->category->category_name }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Cost</th>
+                                    <th>{{ __('Cost') }}</th>
                                     <td>{{ format_currency($product->product_cost) }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Price</th>
+                                    <th>{{ __('Price') }}</th>
                                     <td>{{ format_currency($product->product_price) }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Quantity</th>
+                                    <th>{{ __('Quantity') }}</th>
                                     <td>{{ $product->product_quantity . ' ' . $product->product_unit }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Stock Worth</th>
+                                    <th>{{ __('Stock Worth') }}</th>
                                     <td>
                                         COST:: {{ format_currency($product->product_cost * $product->product_quantity) }} /
                                         PRICE:: {{ format_currency($product->product_price * $product->product_quantity) }}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Alert Quantity</th>
+                                    <th>{{ __('Alert Quantity') }}</th>
                                     <td>{{ $product->product_stock_alert }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Tax (%)</th>
+                                    <th>{{ __('Tax (%)') }}</th>
                                     <td>{{ $product->product_order_tax ?? 'N/A' }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Tax Type</th>
+                                    <th>{{ __('Tax Type') }}</th>
                                     <td>
                                         @if($product->product_tax_type == 1)
                                             Exclusive
@@ -79,7 +79,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Note</th>
+                                    <th>{{ __('Note') }}</th>
                                     <td>{{ $product->product_note ?? 'N/A' }}</td>
                                 </tr>
                             </table>
