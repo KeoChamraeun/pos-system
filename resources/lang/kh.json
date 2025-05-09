@@ -199,5 +199,6 @@
     "No Purchases Data Available!":"មិនមានទិន្នន័យការទិញទេ!",
     "No Sale Return Data Available!":"មិនមានទិន្នន័យលក់ត្រឡប់មកវិញទេ!",
     "Total":"សរុប",
-    "No Purchase Return Data Available!":"គ្មាន​ទិន្នន័យ​ទិញ​ត្រឡប់​មក​វិញ​ទេ!"
+    "No Purchase Return Data Available!":"គ្មាន​ទិន្នន័យ​ទិញ​ត្រឡប់​មក​វិញ​ទេ!",
+    "product code for the selected barcode symbology":"កូដផលិតផលសម្រាប់និមិត្តសញ្ញាបាកូដដែលបានជ្រើសរើស"
 }

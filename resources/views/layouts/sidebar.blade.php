@@ -21,11 +21,18 @@
             background: linear-gradient(135deg, #4d849f 0%, #4d849f 100%) !important;
             color: white;
             transition: all 0.3s ease;
+            font-family: 'KhmerOS_KhmerOS_battambang', sans-serif !important;
         }
         .c-sidebar-brand {
             background-color: rgba(0, 0, 0, 0.1);
             padding: 1rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        @font-face {
+            font-family: 'KhmerOS_KhmerOS_battambang';
+            src: url('{{ asset('fonts/KhmerOS_battambang.ttf') }}') format('truetype');
+            font-weight: normal;
+            font-style: normal;
         }
         .c-sidebar-nav {
             padding: 0.5rem 0;

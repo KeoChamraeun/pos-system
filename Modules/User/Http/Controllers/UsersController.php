@@ -20,13 +20,11 @@ class UsersController extends Controller
         return $dataTable->render('user::users.index');
     }
 
-
     public function create() {
         abort_if(Gate::denies('access_user_management'), 403);
 
         return view('user::users.create');
     }
-
 
     public function store(Request $request) {
         abort_if(Gate::denies('access_user_management'), 403);
@@ -41,7 +39,7 @@ class UsersController extends Controller
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'is_active' => $request->is_active
+            'is_active' => $request->has('is_active') // Proper boolean handling
         ]);
 
         $user->assignRole($request->role);
@@ -62,13 +60,11 @@ class UsersController extends Controller
         return redirect()->route('users.index');
     }
 
-
     public function edit(User $user) {
         abort_if(Gate::denies('access_user_management'), 403);
 
         return view('user::users.edit', compact('user'));
     }
-
 
     public function update(Request $request, User $user) {
         abort_if(Gate::denies('access_user_management'), 403);
@@ -81,7 +77,7 @@ class UsersController extends Controller
         $user->update([
             'name'     => $request->name,
             'email'    => $request->email,
-            'is_active' => $request->is_active
+            'is_active' => $request->has('is_active') // Proper boolean handling
         ]);
 
         $user->syncRoles($request->role);
@@ -105,7 +101,6 @@ class UsersController extends Controller
 
         return redirect()->route('users.index');
     }
-
 
     public function destroy(User $user) {
         abort_if(Gate::denies('access_user_management'), 403);

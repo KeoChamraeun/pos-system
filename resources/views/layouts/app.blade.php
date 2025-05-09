@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>@yield('title') || {{ config('app.name') }}</title>
@@ -8,6 +9,16 @@
 
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('images/favicon.png') }}">
+
+    <!-- Google Font: Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- Font CSS -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
 
     @include('includes.main-css')
 </head>
@@ -34,4 +45,5 @@
 
     @include('includes.main-js')
 </body>
+
 </html>

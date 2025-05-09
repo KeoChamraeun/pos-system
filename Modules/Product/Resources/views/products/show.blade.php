@@ -14,9 +14,23 @@
     <div class="container-fluid mb-4">
         <div class="row mb-3">
             <div class="col-md-12">
-                {!! \Milon\Barcode\Facades\DNS1DFacade::getBarCodeSVG($product->product_code, $product->product_barcode_symbology, 2, 110) !!}
+                @php
+                    $code = $product->product_code;
+                    $symbology = $product->product_barcode_symbology;
+                    $supportedAlphanumeric = ['C128', 'C39'];
+                    $canRender = in_array($symbology, $supportedAlphanumeric) || ctype_digit($code);
+                @endphp
+
+                @if ($canRender)
+                    {!! \Milon\Barcode\Facades\DNS1DFacade::getBarCodeSVG($code, $symbology, 2, 110) !!}
+                @else
+                    <div class="alert alert-warning">
+                        {{ __('product code for the selected barcode symbology') }}
+                    </div>
+                @endif
             </div>
         </div>
+
         <div class="row">
             <div class="col-lg-9">
                 <div class="card h-100">
@@ -94,7 +108,8 @@
                         @forelse($product->getMedia('images') as $media)
                             <img src="{{ $media->getUrl() }}" alt="Product Image" class="img-fluid img-thumbnail mb-2">
                         @empty
-                            <img src="{{ $product->getFirstMediaUrl('images') }}" alt="Product Image" class="img-fluid img-thumbnail mb-2">
+                            <img src="{{ $product->getFirstMediaUrl('images') }}" alt="Product Image"
+                                class="img-fluid img-thumbnail mb-2">
                         @endforelse
                     </div>
                 </div>
@@ -102,6 +117,3 @@
         </div>
     </div>
 @endsection
-
-
-
