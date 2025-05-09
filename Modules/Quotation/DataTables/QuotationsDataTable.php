@@ -54,22 +54,27 @@ class QuotationsDataTable extends DataTable
     protected function getColumns() {
         return [
             Column::make('date')
+                ->title(__('Date'))
                 ->className('text-center align-middle'),
 
             Column::make('reference')
+                ->title(__('Reference'))
                 ->className('text-center align-middle'),
 
             Column::make('customer_name')
-                ->title('Customer')
+                ->title(__('Customer'))
                 ->className('text-center align-middle'),
 
             Column::computed('status')
+                ->title(__('Status'))
                 ->className('text-center align-middle'),
 
             Column::computed('total_amount')
+                ->title(__('Total Amount'))
                 ->className('text-center align-middle'),
 
             Column::computed('action')
+                ->title(__('Action'))
                 ->exportable(false)
                 ->printable(false)
                 ->className('text-center align-middle'),

@@ -2,8 +2,6 @@
     <div class="dropdown">
         <button class="btn btn-sm dropdown-toggle" type="button" id="languageDropdown" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            <img src="{{ asset('assets/flag/usa.png' . $currentLocale . '.png') }}"
-                alt="{{ $availableLocales[$currentLocale] }}" width="20" height="15" class="mr-1">
             {{ strtoupper($currentLocale) }}
         </button>
 
@@ -11,9 +9,9 @@
             @foreach($availableLocales as $locale => $language)
                 @if($locale !== $currentLocale)
                     <a class="dropdown-item" href="#" wire:click.prevent="switchLanguage('{{ $locale }}')">
-                        <img src="{{ asset('assets/flag/kh.png' . $locale . '.png') }}" alt="{{ $language }}" width="20" height="15"
-                            class="mr-2">
-                        {{ $language }}
+                        <button class="btn btn-link">
+                            {{ strtoupper($locale) }} - {{ $language }}
+                        </button>
                     </a>
                 @endif
             @endforeach
@@ -38,8 +36,15 @@
             align-items: center;
         }
 
-        .language-switcher .dropdown-item img {
-            margin-right: 8px;
+        .language-switcher .dropdown-item button {
+            color: inherit;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .language-switcher .dropdown-item button:hover {
+            text-decoration: underline;
         }
     </style>
 @endpush

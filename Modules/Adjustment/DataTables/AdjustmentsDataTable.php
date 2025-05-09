@@ -48,16 +48,19 @@ class AdjustmentsDataTable extends DataTable
     protected function getColumns() {
         return [
             Column::make('date')
+                ->title(__('Date'))
                 ->className('text-center align-middle'),
 
             Column::make('reference')
+                ->title(__('Reference'))
                 ->className('text-center align-middle'),
 
             Column::make('adjusted_products_count')
-                ->title('Products')
+                ->title(__('Products'))
                 ->className('text-center align-middle'),
 
             Column::computed('action')
+                ->title(__('Action'))
                 ->exportable(false)
                 ->printable(false)
                 ->className('text-center align-middle'),

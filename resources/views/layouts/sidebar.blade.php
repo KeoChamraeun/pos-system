@@ -16,4 +16,161 @@
         </div>
     </ul>
     <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
+    <style>
+        .c-sidebar {
+            background: linear-gradient(135deg, #4d849f 0%, #4d849f 100%) !important;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .c-sidebar-brand {
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .c-sidebar-nav {
+            padding: 0.5rem 0;
+        }
+
+        .c-sidebar-nav .c-sidebar-nav-link,
+        .c-sidebar-nav .c-sidebar-nav-dropdown-toggle {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0.75rem 1rem;
+            margin: 0.15rem 0;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .c-sidebar-nav .c-sidebar-nav-link:hover,
+        .c-sidebar-nav .c-sidebar-nav-dropdown-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 3px solid #4fc1e9;
+        }
+
+        .c-sidebar-nav .c-active {
+            background-color: rgba(255, 255, 255, 0.15) !important;
+            color: white !important;
+            border-left: 3px solid #4fc1e9;
+        }
+        .c-sidebar-nav-dropdown-items .c-sidebar-nav-link {
+            padding-left: 2rem;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        .c-sidebar-minimizer {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .c-sidebar-minimizer:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .c-sidebar-minimized .c-sidebar-brand-full {
+            opacity: 0;
+        }
+
+        .c-sidebar-minimized .c-sidebar-brand-minimized {
+            opacity: 1;
+        }
+
+        .ps__thumb-y {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .ps__rail-y:hover .ps__thumb-y {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const minimizer = document.querySelector('.c-sidebar-minimizer');
+            const navLinks = document.querySelectorAll('.c-sidebar-nav-link, .c-sidebar-nav-dropdown-toggle');
+            const dropdownToggles = document.querySelectorAll('.c-sidebar-nav-dropdown-toggle');
+
+            if (typeof Ps !== 'undefined') {
+                Ps.initialize(sidebar.querySelector('.c-sidebar-nav'), {
+                    wheelSpeed: 2,
+                    wheelPropagation: false,
+                    minScrollbarLength: 20
+                });
+            }
+
+            minimizer.addEventListener('click', function() {
+                sidebar.classList.toggle('c-sidebar-minimized');
+
+                if (sidebar.classList.contains('c-sidebar-minimized')) {
+                    localStorage.setItem('sidebarMinimized', 'true');
+                } else {
+                    localStorage.setItem('sidebarMinimized', 'false');
+                }
+            });
+
+            if (localStorage.getItem('sidebarMinimized') === 'true') {
+                sidebar.classList.add('c-sidebar-minimized');
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(l => l.classList.remove('c-active'));
+                    this.classList.add('c-active');
+                    if (this.classList.contains('c-sidebar-nav-dropdown-toggle')) {
+                        event.preventDefault();
+                        const dropdown = this.nextElementSibling;
+                        if (dropdown && dropdown.classList.contains('c-sidebar-nav-dropdown-items')) {
+                            dropdown.classList.toggle('show');
+                            const caret = this.querySelector('.c-sidebar-nav-icon');
+                            if (caret) {
+                                caret.classList.toggle('rotate-90');
+                            }
+                        }
+                    }
+                });
+            });
+            const currentPath = window.location.pathname;
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('c-active');
+                    const dropdown = link.closest('.c-sidebar-nav-dropdown-items');
+                    if (dropdown) {
+                        dropdown.classList.add('show');
+                        const toggle = dropdown.previousElementSibling;
+                        if (toggle && toggle.classList.contains('c-sidebar-nav-dropdown-toggle')) {
+                            toggle.classList.add('c-active');
+                            const caret = toggle.querySelector('.c-sidebar-nav-icon');
+                            if (caret) {
+                                caret.classList.add('rotate-90');
+                            }
+                        }
+                    }
+                }
+            });
+            function handleResponsive() {
+                if (window.innerWidth < 992) {
+                    sidebar.classList.add('c-sidebar-minimized');
+                } else {
+                    if (localStorage.getItem('sidebarMinimized') !== 'true') {
+                        sidebar.classList.remove('c-sidebar-minimized');
+                    }
+                }
+            }
+
+            handleResponsive();
+            window.addEventListener('resize', handleResponsive);
+            document.addEventListener('click', function(event) {
+                if (!sidebar.contains(event.target)) {
+                    document.querySelectorAll('.c-sidebar-nav-dropdown-items').forEach(dropdown => {
+                        dropdown.classList.remove('show');
+                        const toggle = dropdown.previousElementSibling;
+                        if (toggle && toggle.classList.contains('c-sidebar-nav-dropdown-toggle')) {
+                            const caret = toggle.querySelector('.c-sidebar-nav-icon');
+                            if (caret) {
+                                caret.classList.remove('rotate-90');
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </div>

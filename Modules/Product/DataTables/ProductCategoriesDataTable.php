@@ -45,21 +45,42 @@ class ProductCategoriesDataTable extends DataTable
             );
     }
 
-    protected function getColumns() {
+    protected function getColumns()
+    {
         return [
-            Column::make('category_code')
-                ->addClass('text-center'),
+            Column::computed('product_image')
+                ->title(__('Image'))
+                ->className('text-center align-middle'),
 
-            Column::make('category_name')
-                ->addClass('text-center'),
+            Column::make('category.category_name')
+                ->title(__('Categories'))
+                ->className('text-center align-middle'),
 
-            Column::make('products_count')
-                ->addClass('text-center'),
+            Column::make('product_code')
+                ->title(__('Code'))
+                ->className('text-center align-middle'),
+
+            Column::make('product_name')
+                ->title(__('Name'))
+                ->className('text-center align-middle'),
+
+            Column::computed('product_cost')
+                ->title(__('Cost'))
+                ->className('text-center align-middle'),
+
+            Column::computed('product_price')
+                ->title(__('Price'))
+                ->className('text-center align-middle'),
+
+            Column::computed('product_quantity')
+                ->title(__('Quantity'))
+                ->className('text-center align-middle'),
 
             Column::computed('action')
+                ->title(__('Action'))
                 ->exportable(false)
                 ->printable(false)
-                ->addClass('text-center'),
+                ->className('text-center align-middle'),
 
             Column::make('created_at')
                 ->visible(false)

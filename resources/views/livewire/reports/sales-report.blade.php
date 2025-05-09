@@ -7,7 +7,7 @@
                         <div class="form-row">
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label>Start Date <span class="text-danger">*</span></label>
+                                    <label>{{ __('Start Date') }}<span class="text-danger">*</span></label>
                                     <input wire:model="start_date" type="date" class="form-control" name="start_date">
                                     @error('start_date')
                                     <span class="text-danger mt-1">{{ $message }}</span>
@@ -16,7 +16,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label>End Date <span class="text-danger">*</span></label>
+                                    <label>{{ __('End Date') }}<span class="text-danger">*</span></label>
                                     <input wire:model="end_date" type="date" class="form-control" name="end_date">
                                     @error('end_date')
                                     <span class="text-danger mt-1">{{ $message }}</span>
@@ -25,9 +25,9 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label>Customer</label>
+                                    <label>{{ __('Customer') }}</label>
                                     <select wire:model="customer_id" class="form-control" name="customer_id">
-                                        <option value="">Select Customer</option>
+                                        <option value="">{{ __('Select Customer') }}</option>
                                         @foreach($customers as $customer)
                                             <option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>
                                         @endforeach
@@ -38,23 +38,23 @@
                         <div class="form-row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Status</label>
+                                    <label>{{ __('Status') }}</label>
                                     <select wire:model="sale_status" class="form-control" name="sale_status">
-                                        <option value="">Select Status</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Shipped">Shipped</option>
-                                        <option value="Completed">Completed</option>
+                                        <option value="">{{ __('Select Status') }}</option>
+                                        <option value="Pending">{{ __('Pending') }}</option>
+                                        <option value="Shipped">{{ __('Shipped') }}</option>
+                                        <option value="Completed">{{ __('Completed') }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Payment Status</label>
+                                    <label>{{ __('Payment Status') }}</label>
                                     <select wire:model="payment_status" class="form-control" name="payment_status">
-                                        <option value="">Select Payment Status</option>
-                                        <option value="Paid">Paid</option>
-                                        <option value="Unpaid">Unpaid</option>
-                                        <option value="Partial">Partial</option>
+                                        <option value="">{{ __('Select Payment Status') }}</option>
+                                        <option value="Paid">{{ __('Paid') }}</option>
+                                        <option value="Unpaid">{{ __('Unpaid') }}</option>
+                                        <option value="Partial">{{ __('Partial') }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                             <button type="submit" class="btn btn-primary">
                                 <span wire:target="generateReport" wire:loading class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 <i wire:target="generateReport" wire:loading.remove class="bi bi-shuffle"></i>
-                                Filter Report
+                                {{ __('Filter Report') }}
                             </button>
                         </div>
                     </form>
@@ -79,19 +79,19 @@
                     <table class="table table-bordered table-striped text-center mb-0">
                         <div wire:loading.flex class="col-12 position-absolute justify-content-center align-items-center" style="top:0;right:0;left:0;bottom:0;background-color: rgba(255,255,255,0.5);z-index: 99;">
                             <div class="spinner-border text-primary" role="status">
-                                <span class="sr-only">Loading...</span>
+                                <span class="sr-only">{{ __('Loading...') }}</span>
                             </div>
                         </div>
                         <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Reference</th>
-                            <th>Customer</th>
-                            <th>Status</th>
-                            <th>Total</th>
-                            <th>Paid</th>
-                            <th>Due</th>
-                            <th>Payment Status</th>
+                            <th>{{ __('Date') }}</th>
+                            <th>{{ __('Reference') }}</th>
+                            <th>{{ __('Customer') }}</th>
+                            <th>{{ __('Status') }}</th>
+                            <th>{{ __('Total') }}</th>
+                            <th>{{ __('Paid') }}</th>
+                            <th>{{ __('Due') }}</th>
+                            <th>{{ __('Payment Status') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -138,7 +138,7 @@
                         @empty
                             <tr>
                                 <td colspan="8">
-                                    <span class="text-danger">No Sales Data Available!</span>
+                                    <span class="text-danger">{{ __('No Sales Data Available!') }}</span>
                                 </td>
                             </tr>
                         @endforelse
