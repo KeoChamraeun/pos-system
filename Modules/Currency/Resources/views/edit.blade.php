@@ -4,9 +4,9 @@
 
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('currencies.index') }}">Currencies</a></li>
-        <li class="breadcrumb-item active">Edit</li>
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('currencies.index') }}">{{ __('Currencies') }}</a></li>
+        <li class="breadcrumb-item active">{{ __('Edit') }}</li>
     </ol>
 @endsection
 
@@ -19,7 +19,7 @@
                 <div class="col-lg-12">
                     @include('utils.alerts')
                     <div class="form-group">
-                        <button class="btn btn-primary">Update Currency <i class="bi bi-check"></i></button>
+                        <button class="btn btn-primary">{{ __('Create Currency') }}<i class="bi bi-check"></i></button>
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -28,14 +28,15 @@
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="currency_name">Currency Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="currency_name" required value="{{ $currency->currency_name }}">
+                                        <label for="currency_name">{{ __('Currency Name') }}<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="currency_name" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="code">Currency Code <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="code" required value="{{ $currency->code }}">
+                                        <label for="code">{{ __('Currency Code') }}<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="code" required>
                                     </div>
                                 </div>
                             </div>
@@ -43,20 +44,22 @@
                             <div class="form-row">
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="symbol">Symbol <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="symbol" required value="{{ $currency->symbol }}">
+                                        <label for="symbol">{{ __('Symbol') }}<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="symbol" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="thousand_separator">Thousand Separator <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="thousand_separator" required value="{{ $currency->thousand_separator }}">
+                                        <label for="thousand_separator">{{ __('Thousand Separator') }}<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="thousand_separator" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="decimal_separator">Decimal Separator <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="decimal_separator" required value="{{ $currency->decimal_separator }}">
+                                        <label for="decimal_separator">{{ __('Decimal Separator') }}<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="decimal_separator" required>
                                     </div>
                                 </div>
                             </div>

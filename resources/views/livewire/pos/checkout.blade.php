@@ -68,13 +68,13 @@
                                 </tr>
                             @endforeach
                         @else
-                            <tr>
-                                <td colspan="8" class="text-center">
-                        <span class="text-danger">
-                            Please search & select products!
-                        </span>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td colspan="8" class="text-center">
+                            <span class="text-danger">
+                                {{ __('Please search & select products!') }}
+                            </span>
+                                    </td>
+                                </tr>
                         @endif
                         </tbody>
                     </table>
@@ -86,20 +86,20 @@
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <tr>
-                                <th>Order Tax ({{ $global_tax }}%)</th>
+                                <th>{{ __('Order Tax') }} ({{ $global_tax }}%)</th>
                                 <td>(+) {{ format_currency(Cart::instance($cart_instance)->tax()) }}</td>
                             </tr>
                             <tr>
-                                <th>Discount ({{ $global_discount }}%)</th>
+                                <th>{{ __('Discount') }} ({{ $global_discount }}%)</th>
                                 <td>(-) {{ format_currency(Cart::instance($cart_instance)->discount()) }}</td>
                             </tr>
                             <tr>
-                                <th>Shipping</th>
+                                <th>{{ __('Shipping') }}</th>
                                 <input type="hidden" value="{{ $shipping }}" name="shipping_amount">
                                 <td>(+) {{ format_currency($shipping) }}</td>
                             </tr>
                             <tr class="text-primary">
-                                <th>Grand Total</th>
+                                <th>{{ __('Grand Total') }}</th>
                                 @php
                                     $total_with_shipping = Cart::instance($cart_instance)->total() + (float) $shipping
                                 @endphp
@@ -115,27 +115,27 @@
             <div class="form-row">
                 <div class="col-lg-4">
                     <div class="form-group">
-                        <label for="tax_percentage">Order Tax (%)</label>
+                        <label for="tax_percentage">{{ __('Order Tax') }} (%)</label>
                         <input wire:model.blur="global_tax" type="number" class="form-control" min="0" max="100" value="{{ $global_tax }}" required>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="form-group">
-                        <label for="discount_percentage">Discount (%)</label>
+                        <label for="discount_percentage">{{ __('Discount') }} (%)</label>
                         <input wire:model.blur="global_discount" type="number" class="form-control" min="0" max="100" value="{{ $global_discount }}" required>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="form-group">
-                        <label for="shipping_amount">Shipping</label>
+                        <label for="shipping_amount">{{ __('Shipping') }}</label>
                         <input wire:model.blur="shipping" type="number" class="form-control" min="0" value="0" required step="0.01">
                     </div>
                 </div>
             </div>
 
             <div class="form-group d-flex justify-content-center flex-wrap mb-0">
-                <button wire:click="resetCart" type="button" class="btn btn-pill btn-danger mr-3"><i class="bi bi-x"></i> Reset</button>
-                <button wire:loading.attr="disabled" wire:click="proceed" type="button" class="btn btn-pill btn-primary" {{  $total_amount == 0 ? 'disabled' : '' }}><i class="bi bi-check"></i> Proceed</button>
+                <button wire:click="resetCart" type="button" class="btn btn-pill btn-danger mr-3"><i class="bi bi-x"></i> {{ __('Reset') }}</button>
+                <button wire:loading.attr="disabled" wire:click="proceed" type="button" class="btn btn-pill btn-primary" {{  $total_amount == 0 ? 'disabled' : '' }}><i class="bi bi-check"></i> {{ __('Proceed') }}</button>
             </div>
         </div>
     </div>
