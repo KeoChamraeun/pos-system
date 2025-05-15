@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import { Analytics } from "@vercel/analytics/next"
 
 export default defineConfig({
     plugins: [
@@ -10,7 +9,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/chart-config.js',
             ],
-            refresh: true, // Enables automatic page refresh on file change
+            refresh: true,
         }),
     ],
 });
