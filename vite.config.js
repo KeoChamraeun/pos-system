@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import { Analytics } from "@vercel/analytics/next"
 
 export default defineConfig({
     plugins: [
