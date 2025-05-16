@@ -16,9 +16,9 @@
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <div class="alert-body">
                                 <span>{{ session('checkout_message') }}</span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                {{-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
-                                </button>
+                                </button> --}}
                             </div>
                         </div>
                     @endif
@@ -84,7 +84,7 @@
                                     <tr class="text-primary">
                                         <th>{{ __('Grand Total') }}</th>
                                         @php
-                                            $total_with_shipping = Cart::instance($cart_instance)->total() + (float) $shipping
+$total_with_shipping = Cart::instance($cart_instance)->total() + (float) $shipping
                                         @endphp
                                         <th>
                                             (=) {{ format_currency($total_with_shipping) }}
@@ -97,8 +97,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button> --}}
+                    <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                 </div>
             </form>
         </div>

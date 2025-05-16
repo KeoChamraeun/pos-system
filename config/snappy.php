@@ -55,4 +55,26 @@ return [
         'env'     => [],
     ],
 
+    'pdf' => [
+        'enabled' => true,
+        'binary'  => '/usr/bin/wkhtmltopdf', // ✅ Linux path
+        'timeout' => false,
+        'options' => [
+            'enable-local-file-access' => true,
+            'print-media-type' => true
+        ],
+        'env'     => [],
+    ],
+
+    'image' => [
+        'enabled' => true,
+        'binary'  => '/usr/bin/wkhtmltoimage', // Optional: for image rendering
+        'timeout' => false,
+        'options' => [
+            'enable-local-file-access' => true
+        ],
+        'env'     => [],
+    ],
+
+
 ];
