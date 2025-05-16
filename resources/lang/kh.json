@@ -265,5 +265,8 @@
     "Thousand Separator":"ពាន់បំបែក",
     "Decimal Separator":"សញ្ញាបំបែកទសភាគ",
     "Create Currency":"បង្កើតរូបិយប័ណ្ណ",
-    "Currency Code":"លេខកូដរូបិយប័ណ្ណ"
+    "Currency Code":"លេខកូដរូបិយប័ណ្ណ",
+    "Are you sure? It will delete the data permanently!":"តើអ្នកប្រាកដទេ? វានឹងលុបទិន្នន័យជាអចិន្ត្រៃយ៍!",
+    "Confirm Deletion":"បញ្ជាក់ការលុប",
+    "Cancel":"បោះបង់"
 }
