@@ -85,18 +85,18 @@
                     </div>
                 @endcan
                 @can('show_month_overview')
-                <div class="col-lg-5">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-header">
-                            Overview of {{ now()->format('F, Y') }}
-                        </div>
-                        <div class="card-body d-flex justify-content-center">
-                            <div class="chart-container" style="position: relative; height:auto; width:280px">
-                                <canvas id="currentMonthChart"></canvas>
+                    <div class="col-lg-5">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-header">
+                                {{ __('Overview of') }} {{ now()->format('F, Y') }}
+                            </div>
+                            <div class="card-body d-flex justify-content-center">
+                                <div class="chart-container" style="position: relative; height:auto; width:280px">
+                                    <canvas id="currentMonthChart"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 @endcan
             </div>
         @endcan
