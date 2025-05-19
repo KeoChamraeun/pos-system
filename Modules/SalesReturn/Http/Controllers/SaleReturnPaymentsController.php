@@ -72,7 +72,7 @@ class SaleReturnPaymentsController extends Controller
             ]);
         });
 
-        toast('Sale Return Payment Created!', 'success');
+        toast(__('Sale Return Payment Created!'), 'success');
 
         return redirect()->route('sale-returns.index');
     }
@@ -128,7 +128,7 @@ class SaleReturnPaymentsController extends Controller
             ]);
         });
 
-        toast('Sale Return Payment Updated!', 'info');
+        toast(__('Sale Return Payment Updated!'), 'info');
 
         return redirect()->route('sale-returns.index');
     }
@@ -139,7 +139,7 @@ class SaleReturnPaymentsController extends Controller
 
         $saleReturnPayment->delete();
 
-        toast('Sale Return Payment Deleted!', 'warning');
+        toast(__('Sale Return Payment Deleted!'), 'warning');
 
         return redirect()->route('sale-returns.index');
     }

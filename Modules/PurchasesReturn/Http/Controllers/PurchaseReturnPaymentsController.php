@@ -72,7 +72,7 @@ class PurchaseReturnPaymentsController extends Controller
             ]);
         });
 
-        toast('Purchase Return Payment Created!', 'success');
+        toast(__('Purchase Return Payment Created!'), 'success');
 
         return redirect()->route('purchase-returns.index');
     }

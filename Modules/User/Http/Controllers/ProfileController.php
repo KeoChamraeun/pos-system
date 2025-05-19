@@ -46,7 +46,7 @@ class ProfileController extends Controller
             }
         }
 
-        toast('Profile Updated!', 'success');
+        toast(__('Profile Updated!'), 'success');
 
         return back();
     }
@@ -61,7 +61,7 @@ class ProfileController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        toast('Password Updated!', 'success');
+        toast(__('Password Updated!'), 'success');
 
         return back();
     }

@@ -32,7 +32,7 @@ class CategoriesController extends Controller
             'category_name' => $request->category_name,
         ]);
 
-        toast('Product Category Created!', 'success');
+        toast(__('Product Category Created success!'));
 
         return redirect()->back();
     }
