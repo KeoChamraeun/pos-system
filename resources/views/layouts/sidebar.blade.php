@@ -18,58 +18,64 @@
     <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
     <style>
         .c-sidebar {
-            background: linear-gradient(135deg, #4d809f 0%, #4d849f 100%) !important;
+            background: linear-gradient(135deg, #5d5d94 0%, #5d5d94 100%) !important;
             color: white;
             transition: all 0.3s ease;
             font-family: 'KhmerOS_KhmerOS_battambang', sans-serif !important;
         }
+
         .c-sidebar-brand {
-            background-color: rgba(0, 0, 0, 0.1);
+            background-color: rgba(0, 0, 0, 0.2);
             padding: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.112);
         }
+
         @font-face {
             font-family: 'KhmerOS_KhmerOS_battambang';
             src: url('{{ asset('fonts/KhmerOS_battambang.ttf') }}') format('truetype');
             font-weight: normal;
             font-style: normal;
         }
+
         .c-sidebar-nav {
             padding: 0.5rem 0;
         }
 
         .c-sidebar-nav .c-sidebar-nav-link,
         .c-sidebar-nav .c-sidebar-nav-dropdown-toggle {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             padding: 0.75rem 1rem;
             margin: 0.15rem 0;
             border-left: 3px solid transparent;
             transition: all 0.2s ease;
+            font-weight: 500;
         }
 
         .c-sidebar-nav .c-sidebar-nav-link:hover,
         .c-sidebar-nav .c-sidebar-nav-dropdown-toggle:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.08);
             color: white;
-            border-left: 3px solid #4fc1e9;
+            border-left: 3px solid #fca311;
         }
 
         .c-sidebar-nav .c-active {
-            background-color: rgba(255, 255, 255, 0.15) !important;
-            color: white !important;
-            border-left: 3px solid #4fc1e9;
+            background-color: rgba(252, 163, 17, 0.15) !important;
+            color: #fca311 !important;
+            border-left: 3px solid #fca311;
         }
+
         .c-sidebar-nav-dropdown-items .c-sidebar-nav-link {
             padding-left: 2rem;
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: rgba(0, 0, 0, 0.25);
         }
+
         .c-sidebar-minimizer {
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: rgba(0, 0, 0, 0.3);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .c-sidebar-minimizer:hover {
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: rgba(0, 0, 0, 0.4);
         }
 
         .c-sidebar-minimized .c-sidebar-brand-full {
