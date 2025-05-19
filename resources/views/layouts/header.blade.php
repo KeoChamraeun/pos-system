@@ -62,12 +62,12 @@
             </div>
         </a>
         <div class="dropdown-menu dropdown-menu-right pt-0">
-            <div class="dropdown-header bg-light py-2"><strong>Account</strong></div>
+            <div class="dropdown-header bg-light py-2"><strong>{{ __('Account') }}</strong></div>
             <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                <i class="mfe-2  bi bi-person" style="font-size: 1.2rem;"></i> Profile
+                <i class="mfe-2  bi bi-person" style="font-size: 1.2rem;"></i> {{ __('Profile') }}
             </a>
             <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="mfe-2  bi bi-box-arrow-left" style="font-size: 1.2rem;"></i> Logout
+                <i class="mfe-2  bi bi-box-arrow-left" style="font-size: 1.2rem;"></i> {{ __('Logout') }}
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf

@@ -328,5 +328,7 @@
     "Password Updated!":"បានធ្វើបច្ចុប្បន្នភាពពាក្យសម្ងាត់!",
     "Role Created With Selected Permissions!":"តួនាទីបង្កើតដោយមានការអនុញ្ញាតដែលបានជ្រើសរើស!",
     "Role Updated With Selected Permissions!":"តួនាទីត្រូវបានអាប់ដេតជាមួយនឹងការអនុញ្ញាតដែលបានជ្រើសរើស!",
-    "Role Deleted!":"តួនាទីត្រូវបានលុប!"
+    "Role Deleted!":"តួនាទីត្រូវបានលុប!",
+    "Logout":"ចាកចេញ",
+    "Account":"គណនី"
 }

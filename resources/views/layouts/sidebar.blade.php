@@ -18,7 +18,7 @@
     <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
     <style>
         .c-sidebar {
-            background: linear-gradient(135deg, #4d849f 0%, #4d849f 100%) !important;
+            background: linear-gradient(135deg, #4d809f 0%, #4d849f 100%) !important;
             color: white;
             transition: all 0.3s ease;
             font-family: 'KhmerOS_KhmerOS_battambang', sans-serif !important;
