@@ -2,7 +2,7 @@
 
 namespace Modules\Product\DataTables;
 
-use Modules\Product\Entities\Product;
+use Modules\Product\Entities\Category;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -13,29 +13,25 @@ class ProductCategoriesDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('product_image', function ($product) {
-                $image = $product->getFirstMediaUrl('images', 'thumb');
-                $fallback = asset('images/fallback_product_image.png');
-                return '<img src="' . ($image ?: $fallback) . '" width="50" height="50" class="img-thumbnail">';
+            ->addColumn('product_image', function ($category) {
+                $image = $category->product_image ? asset('storage/' . $category->product_image) : asset('images/fallback_product_image.png');
+                return '<img src="' . $image . '" width="50" height="50" class="img-thumbnail">';
             })
-            ->addColumn('category_name', function ($product) {
-                return $product->category->category_name ?? '-';
-            })
-            ->addColumn('action', function ($product) {
-                return view('product::categories.partials.actions', compact('product'));
+            ->addColumn('action', function ($category) {
+                return view('product::categories.partials.actions', compact('category'));
             })
             ->rawColumns(['product_image', 'action']);
     }
 
-    public function query(Product $model)
+    public function query(Category $model)
     {
-        return $model->newQuery()->with('category');
+        return $model->newQuery();
     }
 
     public function html()
     {
         return $this->builder()
-            ->setTableId('product_categories-table')
+            ->setTableId('categories-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->dom("<'row'<'col-md-3'l><'col-md-5 mb-2'B><'col-md-4'f>>" .
@@ -56,43 +52,23 @@ class ProductCategoriesDataTable extends DataTable
             Column::computed('product_image')
                 ->title(__('Image'))
                 ->className('text-center align-middle'),
-
-            Column::computed('category_name')
-                ->title(__('Category'))
-                ->className('text-center align-middle'),
-
-            Column::make('product_code')
+            Column::make('category_code')
                 ->title(__('Code'))
                 ->className('text-center align-middle'),
-
-            Column::make('product_name')
+            Column::make('category_name')
                 ->title(__('Name'))
                 ->className('text-center align-middle'),
-
-            Column::make('product_cost')
-                ->title(__('Cost'))
-                ->className('text-center align-middle'),
-
-            Column::make('product_price')
-                ->title(__('Price'))
-                ->className('text-center align-middle'),
-
-            Column::make('product_quantity')
-                ->title(__('Quantity'))
-                ->className('text-center align-middle'),
-
             Column::computed('action')
                 ->title(__('Action'))
                 ->exportable(false)
                 ->printable(false)
                 ->className('text-center align-middle'),
-
             Column::make('created_at')->visible(false),
         ];
     }
 
     protected function filename(): string
     {
-        return 'ProductCategories_' . date('YmdHis');
+        return 'Categories_' . date('YmdHis');
     }
 }

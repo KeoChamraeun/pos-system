@@ -9,7 +9,6 @@
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('products.index') }}">{{ __('Products') }}</a></li>
         <li class="breadcrumb-item active">{{ __('Categories') }}</li>
     </ol>
 @endsection
@@ -22,14 +21,13 @@
                 <div class="card">
                     <div class="card-body">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#categoryCreateModal">
+                        <button type="button" class="btn btn-primary mb-3" data-toggle="modal"
+                            data-target="#categoryCreateModal">
                             {{ __('Add Category') }} <i class="bi bi-plus"></i>
                         </button>
 
-                        <hr>
-
                         <div class="table-responsive">
-                            {!! $dataTable->table() !!}
+                            {!! $dataTable->table(['class' => 'table table-bordered table-striped']) !!}
                         </div>
                     </div>
                 </div>
@@ -37,7 +35,6 @@
         </div>
     </div>
 
-    <!-- Create Modal -->
     @include('product::includes.category-modal')
 @endsection
 

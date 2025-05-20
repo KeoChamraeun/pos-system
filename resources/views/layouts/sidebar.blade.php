@@ -15,19 +15,23 @@
             <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 369px;"></div>
         </div>
     </ul>
-    <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
+    <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent"
+        data-class="c-sidebar-minimized"></button>
     <style>
         .c-sidebar {
-            background: linear-gradient(135deg, #5d5d94 0%, #5d5d94 100%) !important;
-            color: white;
+            background: linear-gradient(135deg, #2c3a32 0%, #1a1d2b 100%) !important;
+            color: rgba(255, 255, 255, 0.9);
             transition: all 0.3s ease;
             font-family: 'KhmerOS_KhmerOS_battambang', sans-serif !important;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .c-sidebar-brand {
             background-color: rgba(0, 0, 0, 0.2);
             padding: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.112);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px 10px 0 0;
         }
 
         @font-face {
@@ -43,35 +47,48 @@
 
         .c-sidebar-nav .c-sidebar-nav-link,
         .c-sidebar-nav .c-sidebar-nav-dropdown-toggle {
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.7);
             padding: 0.75rem 1rem;
-            margin: 0.15rem 0;
-            border-left: 3px solid transparent;
-            transition: all 0.2s ease;
+            margin: 0.25rem 0;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
         }
 
         .c-sidebar-nav .c-sidebar-nav-link:hover,
         .c-sidebar-nav .c-sidebar-nav-dropdown-toggle:hover {
-            background-color: rgba(255, 255, 255, 0.08);
-            color: white;
-            border-left: 3px solid #fca311;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            border-left: 4px solid #6c5ce7;
         }
 
         .c-sidebar-nav .c-active {
-            background-color: rgba(252, 163, 17, 0.15) !important;
-            color: #fca311 !important;
-            border-left: 3px solid #fca311;
+            background-color: rgba(108, 92, 231, 0.2) !important;
+            color: #6c5ce7 !important;
+            border-left: 4px solid #6c5ce7;
         }
 
         .c-sidebar-nav-dropdown-items .c-sidebar-nav-link {
             padding-left: 2rem;
-            background-color: rgba(0, 0, 0, 0.25);
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 0;
+        }
+
+        .c-sidebar-nav-dropdown-items .c-sidebar-nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.08);
         }
 
         .c-sidebar-minimizer {
             background-color: rgba(0, 0, 0, 0.3);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            padding: 0.5rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 0 0 10px 10px;
         }
 
         .c-sidebar-minimizer:hover {
@@ -95,7 +112,7 @@
         }
     </style>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const sidebar = document.getElementById('sidebar');
             const minimizer = document.querySelector('.c-sidebar-minimizer');
             const navLinks = document.querySelectorAll('.c-sidebar-nav-link, .c-sidebar-nav-dropdown-toggle');
@@ -109,7 +126,7 @@
                 });
             }
 
-            minimizer.addEventListener('click', function() {
+            minimizer.addEventListener('click', function () {
                 sidebar.classList.toggle('c-sidebar-minimized');
 
                 if (sidebar.classList.contains('c-sidebar-minimized')) {
@@ -124,7 +141,7 @@
             }
 
             navLinks.forEach(link => {
-                link.addEventListener('click', function() {
+                link.addEventListener('click', function (event) {
                     navLinks.forEach(l => l.classList.remove('c-active'));
                     this.classList.add('c-active');
                     if (this.classList.contains('c-sidebar-nav-dropdown-toggle')) {
@@ -140,6 +157,7 @@
                     }
                 });
             });
+
             const currentPath = window.location.pathname;
             navLinks.forEach(link => {
                 if (link.getAttribute('href') === currentPath) {
@@ -158,6 +176,7 @@
                     }
                 }
             });
+
             function handleResponsive() {
                 if (window.innerWidth < 992) {
                     sidebar.classList.add('c-sidebar-minimized');
@@ -170,7 +189,7 @@
 
             handleResponsive();
             window.addEventListener('resize', handleResponsive);
-            document.addEventListener('click', function(event) {
+            document.addEventListener('click', function (event) {
                 if (!sidebar.contains(event.target)) {
                     document.querySelectorAll('.c-sidebar-nav-dropdown-items').forEach(dropdown => {
                         dropdown.classList.remove('show');
