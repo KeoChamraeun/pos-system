@@ -2,10 +2,6 @@
 
 @section('title', 'Adjustment Details')
 
-@push('page_css')
-    @livewireStyles
-@endpush
-
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
@@ -16,53 +12,37 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
+        <div class="card">
+            <div class="card-body">
+                <h5>{{ __('Date') }}: {{ $adjustment->date }}</h5>
+                <h5>{{ __('Reference') }}: {{ $adjustment->reference }}</h5>
+                <div class="table-responsive mt-3">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>{{ __('Product Name') }}</th>
+                                <th>{{ __('Code') }}</th>
+                                <th>{{ __('Quantity') }}</th>
+                                <th>{{ __('Type') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($adjustment->adjustedProducts as $adjustedProduct)
                                 <tr>
-                                    <th colspan="2">
-                                        {{ __('Date') }}
-                                    </th>
-                                    <th colspan="2">
-                                        {{ __('Reference') }}
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        {{ $adjustment->date }}
+                                    <td>{{ $adjustedProduct->product->product_name }}</td>
+                                    <td>{{ $adjustedProduct->product->product_code }}</td>
+                                    <td>{{ $adjustedProduct->quantity }}</td>
+                                    <td>
+                                        @if($adjustedProduct->type == 'add')
+                                            (+) Addition
+                                        @else
+                                            (-) Subtraction
+                                        @endif
                                     </td>
-                                    <td colspan="2">
-                                        {{ $adjustment->reference }}
-                                    </td>
                                 </tr>
-
-                                <tr>
-                                    <th>{{ __('Product Name') }}</th>
-                                    <th>{{ __('Code') }}</th>
-                                    <th>{{ __('Quantity') }}</th>
-                                    <th>{{ __('Type') }}</th>
-                                </tr>
-
-                                @foreach($adjustment->adjustedProducts as $adjustedProduct)
-                                    <tr>
-                                        <td>{{ $adjustedProduct->product->product_name }}</td>
-                                        <td>{{ $adjustedProduct->product->product_code }}</td>
-                                        <td>{{ $adjustedProduct->quantity }}</td>
-                                        <td>
-                                            @if($adjustedProduct->type == 'add')
-                                                (+) Addition
-                                            @else
-                                                (-) Subtraction
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </table>
-                        </div>
-                    </div>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

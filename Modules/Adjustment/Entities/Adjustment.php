@@ -16,8 +16,9 @@ class Adjustment extends Model
         return Carbon::parse($value)->format('d M, Y');
     }
 
-    public function adjustedProducts() {
-        return $this->hasMany(AdjustedProduct::class, 'adjustment_id', 'id');
+    public function adjustedProducts()
+    {
+        return $this->hasMany(AdjustedProduct::class);
     }
 
     public static function boot() {
