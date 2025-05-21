@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Expense Categories')
+@section('title', 'Product Categories')
 
 @section('third_party_stylesheets')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
@@ -9,7 +9,6 @@
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('expenses.index') }}">{{ __('Expenses') }}</a></li>
         <li class="breadcrumb-item active">{{ __('Categories') }}</li>
     </ol>
 @endsection
@@ -22,14 +21,13 @@
                 <div class="card">
                     <div class="card-body">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#categoryCreateModal">
+                        <button type="button" class="btn btn-primary mb-3" data-toggle="modal"
+                            data-target="#categoryCreateModal">
                             {{ __('Add Category') }} <i class="bi bi-plus"></i>
                         </button>
 
-                        <hr>
-
                         <div class="table-responsive">
-                            {!! $dataTable->table() !!}
+                            {!! $dataTable->table(['class' => 'table table-bordered table-striped']) !!}
                         </div>
                     </div>
                 </div>
@@ -37,49 +35,9 @@
         </div>
     </div>
 
-    <!-- Create Modal -->
-    <div class="modal fade" id="categoryCreateModal" tabindex="-1" role="dialog" aria-labelledby="categoryCreateModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="categoryCreateModalLabel">{{ __('Create Category') }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{ route('expense-categories.store') }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="category_name">{{ __('Category Name') }}<span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" name="category_name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="category_description">{{ __('Description') }}</label>
-                            <textarea class="form-control" name="category_description" id="category_description" rows="5"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">{{ __('Create') }}<i class="bi bi-check"></i></button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    @include('product::includes.category-modal')
 @endsection
 
 @push('page_scripts')
     {!! $dataTable->scripts() !!}
-    <script>
-        $(document).ready(function () {
-            $('#expenses-table').DataTable().destroy(); // Destroy previous init if exists
-
-            $('#expenses-table').DataTable({
-                language: {
-                    url: "{{ asset('lang/kh.json') }}"
-                }
-            });
-        });
-    </script>
 @endpush
-

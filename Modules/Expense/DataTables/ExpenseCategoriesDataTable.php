@@ -3,6 +3,7 @@
 namespace Modules\Expense\DataTables;
 
 use Modules\Expense\Entities\ExpenseCategory;
+use Modules\Product\Entities\Category;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -12,73 +13,74 @@ use Yajra\DataTables\Services\DataTable;
 class ExpenseCategoriesDataTable extends DataTable
 {
 
-    public function dataTable($query) {
+    // public function dataTable($query) {
+    //     return datatables()
+    //         ->eloquent($query)
+    //         ->addColumn('action', function ($data) {
+    //             return view('expense::categories.partials.actions', compact('data'));
+    //         });
+    // }
+
+    public function dataTable($query)
+    {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function ($data) {
-                return view('expense::categories.partials.actions', compact('data'));
-            });
+            ->addColumn('product_image', function ($category) {
+                $image = $category->product_image ? asset('storage/' . $category->product_image) : asset('images/fallback_product_image.png');
+                return '<img src="' . $image . '" width="50" height="50" class="img-thumbnail">';
+            })
+            ->addColumn('action', function ($category) {
+                return view('expense::categories.partials.actions', compact('category'));
+            })
+            ->rawColumns(['product_image', 'action']);
     }
 
-    public function query(ExpenseCategory $model) {
-        return $model->newQuery()->withCount('expenses');
+    public function query(Category $model)
+    {
+        return $model->newQuery();
     }
 
-    public function html() {
+    public function html()
+    {
         return $this->builder()
-            ->setTableId('expensecategories-table')
+            ->setTableId('categories-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->dom("<'row'<'col-md-3'l><'col-md-5 mb-2'B><'col-md-4'f>> .
-                                'tr' .
-                                <'row'<'col-md-5'i><'col-md-7 mt-2'p>>")
-            ->orderBy(4)
+            ->dom("<'row'<'col-md-3'l><'col-md-5 mb-2'B><'col-md-4'f>>" .
+                  "tr" .
+                  "<'row'<'col-md-5'i><'col-md-7 mt-2'p>>")
+            ->orderBy(1)
             ->buttons(
-                Button::make('excel')
-                    ->text('<i class="bi bi-file-earmark-excel-fill"></i> Excel'),
-                Button::make('print')
-                    ->text('<i class="bi bi-printer-fill"></i> Print'),
-                Button::make('reset')
-                    ->text('<i class="bi bi-x-circle"></i> Reset'),
-                Button::make('reload')
-                    ->text('<i class="bi bi-arrow-repeat"></i> Reload')
+                Button::make('excel')->text('<i class="bi bi-file-earmark-excel-fill"></i> Excel'),
+                Button::make('print')->text('<i class="bi bi-printer-fill"></i> Print'),
+                Button::make('reset')->text('<i class="bi bi-x-circle"></i> Reset'),
+                Button::make('reload')->text('<i class="bi bi-arrow-repeat"></i> Reload')
             );
     }
 
-    protected function getColumns() {
+    protected function getColumns()
+    {
         return [
-            Column::make('date')
-                ->title(__('Date'))
+            Column::computed('product_image')
+                ->title(__('Image'))
                 ->className('text-center align-middle'),
-
-            Column::make('reference')
-                ->title(__('Reference'))
+            Column::make('category_code')
+                ->title(__('Code'))
                 ->className('text-center align-middle'),
-
-            Column::make('category.category_name')
-                ->title(__('Categories'))
+            Column::make('category_name')
+                ->title(__('Name'))
                 ->className('text-center align-middle'),
-
-            Column::computed('amount')
-                ->title(__('Amount'))
-                ->className('text-center align-middle'),
-
-            Column::make('details')
-                ->title(__('Details'))
-                ->className('text-center align-middle'),
-
             Column::computed('action')
                 ->title(__('Action'))
                 ->exportable(false)
                 ->printable(false)
                 ->className('text-center align-middle'),
-
-            Column::make('created_at')
-                ->visible(false)
+            Column::make('created_at')->visible(false),
         ];
     }
 
-    protected function filename(): string {
-        return 'ExpenseCategories_' . date('YmdHis');
+    protected function filename(): string
+    {
+        return 'Categories_' . date('YmdHis');
     }
 }

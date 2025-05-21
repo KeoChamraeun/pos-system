@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Expense Category')
+@section('title', 'Edit Product Category')
 
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('expenses.index') }}">{{ __('Expenses') }}</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('expense-categories.index') }}">{{ __('Categories') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('product-categories.index') }}">{{ __('Categories') }}</a></li>
         <li class="breadcrumb-item active">{{ __('Edit') }}</li>
     </ol>
 @endsection
@@ -18,19 +17,37 @@
                 @include('utils.alerts')
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('expense-categories.update', $expenseCategory) }}" method="POST">
+                        <form action="{{ route('product-categories.update', $category->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
-                            @method('patch')
+                            @method('PATCH')
+
                             <div class="form-group">
-                                <label for="category_name">{{ __('Category Name') }}<span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" name="category_name" required value="{{ $expenseCategory->category_name }}">
+                                <label class="font-weight-bold" for="category_code">{{ __('Category Code') }}<span
+                                        class="text-danger">*</span></label>
+                                <input class="form-control" type="text" name="category_code" required
+                                    value="{{ $category->category_code }}">
                             </div>
+
                             <div class="form-group">
-                                <label for="category_description">{{ __('Description') }}</label>
-                                <textarea class="form-control" name="category_description" id="category_description" rows="5">{{ $expenseCategory->category_description }}</textarea>
+                                <label class="font-weight-bold" for="category_name">{{ __('Category Name') }}<span
+                                        class="text-danger">*</span></label>
+                                <input class="form-control" type="text" name="category_name" required
+                                    value="{{ $category->category_name }}">
                             </div>
+
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">{{ __('Update') }} <i class="bi bi-check"></i></button>
+                                <label class="font-weight-bold" for="product_image">{{ __('Category Image') }}</label>
+                                <input class="form-control-file" type="file" name="product_image">
+                                @if($category->product_image)
+                                    <img src="{{ asset('storage/' . $category->product_image) }}" alt="Category Image"
+                                        class="img-thumbnail mt-2" width="100">
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">{{ __('Update') }} <i
+                                        class="bi bi-check"></i></button>
                             </div>
                         </form>
                     </div>
@@ -39,4 +56,3 @@
         </div>
     </div>
 @endsection
-
