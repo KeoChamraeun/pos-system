@@ -11,7 +11,7 @@
     <style>
         @font-face {
             font-family: 'KhmerOS';
-            src: url('{{ public_path('fonts/KhmerOSbattambang.ttf') }}') format('truetype');
+            src: url('{{ public_path('fonts/KhmerOS_battambang.ttf') }}') format('truetype');
         }
 
         * {
