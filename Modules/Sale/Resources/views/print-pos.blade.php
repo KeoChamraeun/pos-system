@@ -7,41 +7,73 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        @font-face {
+            font-family: 'KhmerOS';
+            src: url('/fonts/KhmerOS_battambang.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         * {
+            font-family: 'KhmerOS', 'Noto Sans Khmer', sans-serif;
             font-size: 12px;
             line-height: 18px;
-            font-family: 'Ubuntu', sans-serif;
         }
-        h2 {
+
+        h2,
+        h4 {
             font-size: 16px;
         }
+
         td,
         th,
         tr,
         table {
             border-collapse: collapse;
         }
-        tr {border-bottom: 1px dashed #ddd;}
-        td,th {padding: 7px 0;width: 50%;}
 
-        table {width: 100%;}
-        tfoot tr th:first-child {text-align: left;}
+        tr {
+            border-bottom: 1px dashed #ddd;
+        }
+
+        td,
+        th {
+            padding: 7px 0;
+            width: 50%;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        tfoot tr th:first-child {
+            text-align: left;
+        }
 
         .centered {
             text-align: center;
             align-content: center;
         }
-        small{font-size:11px;}
+
+        small {
+            font-size: 11px;
+        }
 
         @media print {
             * {
-                font-size:12px;
+                font-size: 12px;
                 line-height: 20px;
             }
-            td,th {padding: 5px 0;}
+
+            td,
+            th {
+                padding: 5px 0;
+            }
+
             .hidden-print {
                 display: none !important;
             }
+
             tbody::after {
                 content: '';
                 display: block;
@@ -51,6 +83,7 @@
             }
         }
     </style>
+
 </head>
 <body>
 
