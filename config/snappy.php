@@ -58,7 +58,7 @@ return [
     'pdf' => [
         'enabled' => true,
         'binary'  => '/usr/bin/wkhtmltopdf',
-        'binary'  => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"', // <-- FIX PATH HERE
+        // 'binary'  => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"', // <-- FIX PATH HERE
         'timeout' => false,
         'options' => [
             'enable-local-file-access' => true,
