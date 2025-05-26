@@ -9,7 +9,7 @@
     <style>
         @font-face {
             font-family: 'KhmerOS';
-            src: url('/fonts/KhmerOS_battambang.ttf') format('truetype');
+            src: url('{{ public_path('fonts/KhmerOS_battambang.ttf') }}') format('truetype');
             font-weight: normal;
             font-style: normal;
         }
