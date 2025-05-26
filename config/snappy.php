@@ -56,15 +56,17 @@ return [
     ],
 
     'pdf' => [
-        'enabled' => true,
-        'binary'  => '/usr/bin/wkhtmltopdf', // ✅ Linux path
-        'timeout' => false,
+        'binary'  => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"', // adjust to Linux path if hosted on Linux
         'options' => [
-            'enable-local-file-access' => true,
-            'print-media-type' => true
+            'enable-local-file-access' => true, // required for loading local assets (CSS/fonts)
+            'encoding' => 'UTF-8',              // important for Unicode
+            'no-outline' => true,
+            'viewport-size' => '1280x1024',
+            'load-error-handling' => 'ignore',
+            'load-media-error-handling' => 'ignore',
         ],
-        'env'     => [],
     ],
+
 
     'image' => [
         'enabled' => true,
