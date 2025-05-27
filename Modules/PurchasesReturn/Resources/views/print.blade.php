@@ -7,6 +7,134 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ __('Purchase Return Details') }}</title>
     <link rel="stylesheet" href="{{ public_path('b3/bootstrap.min.css') }}">
+    <style>
+        @font-face {
+            font-family: 'KhmerOS';
+            src: url('{{ public_path('fonts/KhmerOS_battambang.ttf') }}') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            font-family: 'KhmerOS', 'Noto Sans Khmer', sans-serif;
+            font-size: 12px;
+            line-height: 1.5;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2,
+        h4 {
+            font-size: 16px;
+            margin: 0 0 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header img {
+            max-width: 180px;
+            height: auto;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-section {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        th {
+            background-color: #f5f5f5;
+        }
+
+        .summary-table {
+            width: 50%;
+            margin-left: auto;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 6px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 3px;
+            font-size: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            font-style: italic;
+            margin-top: 25px;
+        }
+
+        @media screen and (max-width: 600px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-table {
+                width: 100%;
+            }
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+
+            .info-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            th,
+            td {
+                padding: 5px;
+            }
+
+            .hidden-print {
+                display: none !important;
+            }
+
+            .table,
+            .summary-table {
+                page-break-inside: auto;
+            }
+
+            .table tbody tr:last-child {
+                page-break-after: avoid;
+            }
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
