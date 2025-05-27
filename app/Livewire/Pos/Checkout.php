@@ -5,6 +5,7 @@ namespace App\Livewire\Pos;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Modules\People\Entities\Customer;
 
 class Checkout extends Component
 {
@@ -30,7 +31,7 @@ class Checkout extends Component
         }
 
         $this->cart_instance = $cartInstance;
-        $this->customers = $customers;
+        $this->customers = Customer::where('user_id', Auth::id())->get();
         $this->global_discount = 0;
         $this->global_tax = 0;
         $this->shipping = 0.00;

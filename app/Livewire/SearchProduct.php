@@ -46,19 +46,7 @@ class SearchProduct extends Component
         $this->search_results = Collection::empty();
     }
 
-    public function selectProduct($productId) {
-        $userId = Auth::id(); // Get logged-in user id
-
-        $product = Product::where('id', $productId)
-                          ->where('user_id', $userId)
-                          ->first();
-
-        if ($product) {
-            $this->dispatch('productSelected', $product);
-        } else {
-            // Optionally dispatch an error or flash message
-            session()->flash('error', 'Product not found or unauthorized.');
-        }
+    public function selectProduct($product) {
+        $this->dispatch('productSelected', $product);
     }
-
 }

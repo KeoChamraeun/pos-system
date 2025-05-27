@@ -1,16 +1,16 @@
 <div>
     <div class="form-row">
-        <div class="col-md-7">
+        {{-- <div class="col-md-7">
             <div class="form-group">
                 <label>{{ __('Product Category') }}</label>
-                <select wire:model="selectedProduct" class="form-control">
-                    <option value="">{{ __('Select Product') }}</option>
-                    @foreach(\Modules\Product\Entities\Product::where('user_id', Auth::id())->get() as $product)
-                        <option value="{{ $product->id }}">{{ $product->product_name }}</option>
+                <select wire:model.live="category" class="form-control">
+                    <option value="">{{ __('All Products') }}</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                     @endforeach
                 </select>
             </div>
-        </div>
+        </div> --}}
         <div class="col-md-5">
             <div class="form-group">
                 <label>{{ __('Product Count') }}</label>
