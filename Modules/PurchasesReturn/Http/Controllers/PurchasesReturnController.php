@@ -14,6 +14,7 @@ use Modules\PurchasesReturn\Entities\PurchaseReturnDetail;
 use Modules\PurchasesReturn\Entities\PurchaseReturnPayment;
 use Modules\PurchasesReturn\Http\Requests\StorePurchaseReturnRequest;
 use Modules\PurchasesReturn\Http\Requests\UpdatePurchaseReturnRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PurchasesReturnController extends Controller
 {
@@ -47,6 +48,7 @@ class PurchasesReturnController extends Controller
             }
 
             $purchase_return = PurchaseReturn::create([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'supplier_id' => $request->supplier_id,
                 'supplier_name' => Supplier::findOrFail($request->supplier_id)->supplier_name,
@@ -170,6 +172,7 @@ class PurchasesReturnController extends Controller
             }
 
             $purchase_return->update([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'reference' => $request->reference,
                 'supplier_id' => $request->supplier_id,

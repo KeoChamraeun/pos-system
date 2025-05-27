@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Gate;
 use Modules\Expense\Entities\Expense;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Exp;
+use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
 {
@@ -39,6 +40,7 @@ class ExpenseController extends Controller
         ]);
 
         Expense::create([
+            'user_id' => Auth::id(),
             'date' => $request->date,
             'category_id' => $request->category_id,
             'amount' => $request->amount,
@@ -70,6 +72,7 @@ class ExpenseController extends Controller
         ]);
 
         $expense->update([
+            'user_id' => Auth::id(),
             'date' => $request->date,
             'reference' => $request->reference,
             'category_id' => $request->category_id,

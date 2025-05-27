@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Modules\Sale\Entities\Sale;
 use Modules\Sale\Entities\SalePayment;
+use Illuminate\Support\Facades\Auth;
 
 class SalePaymentsController extends Controller
 {
@@ -46,6 +47,7 @@ class SalePaymentsController extends Controller
 
         DB::transaction(function () use ($request) {
             SalePayment::create([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'reference' => $request->reference,
                 'amount' => $request->amount,
@@ -120,6 +122,7 @@ class SalePaymentsController extends Controller
             ]);
 
             $salePayment->update([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'reference' => $request->reference,
                 'amount' => $request->amount,

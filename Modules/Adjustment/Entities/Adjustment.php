@@ -20,6 +20,10 @@ class Adjustment extends Model
     {
         return $this->hasMany(AdjustedProduct::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 
     public static function boot() {
         parent::boot();

@@ -15,6 +15,8 @@ class CreatePurchaseReturnsTable extends Migration
     {
         Schema::create('purchase_returns', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->date('date');
             $table->string('reference');
             $table->unsignedBigInteger('supplier_id')->nullable();

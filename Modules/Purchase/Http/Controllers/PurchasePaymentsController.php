@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Modules\Purchase\Entities\Purchase;
 use Modules\Purchase\Entities\PurchasePayment;
+use Illuminate\Support\Facades\Auth;
+
 
 class PurchasePaymentsController extends Controller
 {
@@ -45,6 +47,7 @@ class PurchasePaymentsController extends Controller
 
         DB::transaction(function () use ($request) {
             PurchasePayment::create([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'reference' => $request->reference,
                 'amount' => $request->amount,
@@ -119,6 +122,7 @@ class PurchasePaymentsController extends Controller
             ]);
 
             $purchasePayment->update([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'reference' => $request->reference,
                 'amount' => $request->amount,

@@ -3,10 +3,9 @@
 namespace Modules\Product\DataTables;
 
 use Modules\Product\Entities\Product;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class ProductDataTable extends DataTable
@@ -37,7 +36,8 @@ class ProductDataTable extends DataTable
 
     public function query(Product $model)
     {
-        return $model->newQuery()->with('category');
+        $userId = Auth::id();
+        return $model->newQuery()->with('category')->where('user_id', $userId);
     }
 
     public function html()
@@ -51,14 +51,10 @@ class ProductDataTable extends DataTable
                                 <'row'<'col-md-5'i><'col-md-7 mt-2'p>>")
                     ->orderBy(7)
                     ->buttons(
-                        Button::make('excel')
-                            ->text('<i class="bi bi-file-earmark-excel-fill"></i> Excel'),
-                        Button::make('print')
-                            ->text('<i class="bi bi-printer-fill"></i> Print'),
-                        Button::make('reset')
-                            ->text('<i class="bi bi-x-circle"></i> Reset'),
-                        Button::make('reload')
-                            ->text('<i class="bi bi-arrow-repeat"></i> Reload')
+                        Button::make('excel')->text('<i class="bi bi-file-earmark-excel-fill"></i> Excel'),
+                        Button::make('print')->text('<i class="bi bi-printer-fill"></i> Print'),
+                        Button::make('reset')->text('<i class="bi bi-x-circle"></i> Reset'),
+                        Button::make('reload')->text('<i class="bi bi-arrow-repeat"></i> Reload')
                     );
     }
 
@@ -104,11 +100,6 @@ class ProductDataTable extends DataTable
         ];
     }
 
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
     protected function filename(): string
     {
         return 'Product_' . date('YmdHis');

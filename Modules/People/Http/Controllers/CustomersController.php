@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Gate;
 use Modules\People\Entities\Customer;
+use Illuminate\Support\Facades\Auth;
 
 class CustomersController extends Controller
 {
@@ -39,6 +40,7 @@ class CustomersController extends Controller
         ]);
 
         Customer::create([
+            'user_id' => Auth::id(),
             'customer_name'  => $request->customer_name,
             'customer_phone' => $request->customer_phone,
             'customer_email' => $request->customer_email,
@@ -80,6 +82,7 @@ class CustomersController extends Controller
         ]);
 
         $customer->update([
+            'user_id' => Auth::id(),
             'customer_name'  => $request->customer_name,
             'customer_phone' => $request->customer_phone,
             'customer_email' => $request->customer_email,

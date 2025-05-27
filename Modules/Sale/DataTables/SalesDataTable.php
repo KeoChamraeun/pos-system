@@ -8,6 +8,8 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\Auth;
+
 
 class SalesDataTable extends DataTable
 {
@@ -34,9 +36,9 @@ class SalesDataTable extends DataTable
                 return view('sale::partials.actions', compact('data'));
             });
     }
-
     public function query(Sale $model) {
-        return $model->newQuery();
+        $userId = Auth::id();
+        return $model->newQuery()->where('user_id', $userId);
     }
 
     public function html() {

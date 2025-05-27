@@ -10,6 +10,7 @@ use Modules\Adjustment\Entities\Adjustment;
 use Modules\Adjustment\Entities\AdjustedProduct;
 use Modules\Product\Entities\Product;
 use Modules\Adjustment\DataTables\AdjustmentsDataTable;
+use Illuminate\Support\Facades\Auth;
 
 class AdjustmentController extends Controller
 {
@@ -40,17 +41,18 @@ class AdjustmentController extends Controller
 
         DB::transaction(function () use ($request) {
             $adjustment = Adjustment::create([
+                'user_id'   => Auth::id(),
                 'reference' => $request->reference,
-                'date' => $request->date,
-                'note' => $request->note
+                'date'      => $request->date,
+                'note'      => $request->note
             ]);
 
             foreach ($request->product_ids as $key => $id) {
                 AdjustedProduct::create([
                     'adjustment_id' => $adjustment->id,
-                    'product_id' => $id,
-                    'quantity' => $request->quantities[$key],
-                    'type' => $request->types[$key]
+                    'product_id'    => $id,
+                    'quantity'      => $request->quantities[$key],
+                    'type'          => $request->types[$key]
                 ]);
 
                 $product = Product::findOrFail($id);
@@ -82,6 +84,9 @@ class AdjustmentController extends Controller
     public function update(Request $request, Adjustment $adjustment)
     {
         abort_if(Gate::denies('edit_adjustments'), 403);
+        if ($adjustment->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized access to this adjustment.');
+        }
 
         $request->validate([
             'reference'   => 'required|string|max:255',

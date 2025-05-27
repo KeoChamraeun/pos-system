@@ -5,10 +5,10 @@ namespace App\Livewire;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use Modules\Product\Entities\Product;
+use Illuminate\Support\Facades\Auth;
 
 class SearchProduct extends Component
 {
-
     public $query;
     public $search_results;
     public $how_many;
@@ -24,9 +24,15 @@ class SearchProduct extends Component
     }
 
     public function updatedQuery() {
-        $this->search_results = Product::where('product_name', 'like', '%' . $this->query . '%')
-            ->orWhere('product_code', 'like', '%' . $this->query . '%')
-            ->take($this->how_many)->get();
+        $userId = Auth::id(); // Get logged-in user id
+
+        $this->search_results = Product::where('user_id', $userId)
+            ->where(function($query) {
+                $query->where('product_name', 'like', '%' . $this->query . '%')
+                      ->orWhere('product_code', 'like', '%' . $this->query . '%');
+            })
+            ->take($this->how_many)
+            ->get();
     }
 
     public function loadMore() {

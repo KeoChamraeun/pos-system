@@ -9,6 +9,7 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\Auth;
 
 class CustomersDataTable extends DataTable
 {
@@ -20,9 +21,9 @@ class CustomersDataTable extends DataTable
                 return view('people::customers.partials.actions', compact('data'));
             });
     }
-
     public function query(Customer $model) {
-        return $model->newQuery();
+        $userId = Auth::id();
+        return $model->newQuery()->where('user_id', $userId);
     }
 
     public function html() {

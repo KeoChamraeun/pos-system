@@ -15,6 +15,10 @@ class PurchasePayment extends Model
     public function purchase() {
         return $this->belongsTo(Purchase::class, 'purchase_id', 'id');
     }
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
+    }
 
     public function setAmountAttribute($value) {
         $this->attributes['amount'] = $value * 100;

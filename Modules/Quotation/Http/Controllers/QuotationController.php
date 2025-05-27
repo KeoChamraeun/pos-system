@@ -14,6 +14,7 @@ use Modules\Quotation\Entities\Quotation;
 use Modules\Quotation\Entities\QuotationDetails;
 use Modules\Quotation\Http\Requests\StoreQuotationRequest;
 use Modules\Quotation\Http\Requests\UpdateQuotationRequest;
+use Illuminate\Support\Facades\Auth;
 
 class QuotationController extends Controller
 {
@@ -37,6 +38,7 @@ class QuotationController extends Controller
     public function store(StoreQuotationRequest $request) {
         DB::transaction(function () use ($request) {
             $quotation = Quotation::create([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'customer_id' => $request->customer_id,
                 'customer_name' => Customer::findOrFail($request->customer_id)->customer_name,
@@ -123,6 +125,7 @@ class QuotationController extends Controller
             }
 
             $quotation->update([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'reference' => $request->reference,
                 'customer_id' => $request->customer_id,

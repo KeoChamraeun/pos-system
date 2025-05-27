@@ -3,15 +3,23 @@
 namespace App\Livewire\Pos;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class Filter extends Component
 {
     public $categories;
     public $category;
     public $showCount;
+    public $userId;
 
     public function mount($categories) {
         $this->categories = $categories;
+
+        if (Auth::check()) {
+            $this->userId = Auth::id();
+        } else {
+            abort(403, 'Unauthorized');
+        }
     }
 
     public function render() {

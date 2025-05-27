@@ -13,17 +13,31 @@ use Modules\Sale\Entities\Sale;
 use Modules\Sale\Entities\SalePayment;
 use Modules\SalesReturn\Entities\SaleReturn;
 use Modules\SalesReturn\Entities\SaleReturnPayment;
+use Illuminate\Support\Facades\Auth;    // <--- Add this
+
 
 class HomeController extends Controller
 {
 
     public function index() {
-        $sales = Sale::completed()->sum('total_amount');
-        $sale_returns = SaleReturn::completed()->sum('total_amount');
-        $purchase_returns = PurchaseReturn::completed()->sum('total_amount');
+        $userId = Auth::id();
+
+        $sales = Sale::completed()
+            ->sum('total_amount');
+
+        $sale_returns = SaleReturn::completed()
+            ->sum('total_amount');
+
+        $purchase_returns = PurchaseReturn::completed()
+            ->sum('total_amount');
+
         $product_costs = 0;
 
-        foreach (Sale::completed()->with('saleDetails')->get() as $sale) {
+        $salesWithDetails = Sale::completed()
+            ->with('saleDetails')
+            ->get();
+
+        foreach ($salesWithDetails as $sale) {
             foreach ($sale->saleDetails as $saleDetail) {
                 if (!is_null($saleDetail->product)) {
                     $product_costs += $saleDetail->product->product_cost * $saleDetail->quantity;

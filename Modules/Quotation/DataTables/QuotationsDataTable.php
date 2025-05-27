@@ -8,6 +8,8 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\Auth;
+
 
 class QuotationsDataTable extends DataTable
 {
@@ -25,10 +27,14 @@ class QuotationsDataTable extends DataTable
                 return view('quotation::partials.actions', compact('data'));
             });
     }
-
     public function query(Quotation $model) {
-        return $model->newQuery();
+        // Get current logged-in user ID
+        $userId = Auth::id();
+
+        // Return quotations only for this user
+        return $model->newQuery()->where('user_id', $userId);
     }
+
 
     public function html() {
         return $this->builder()

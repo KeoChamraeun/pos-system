@@ -32,23 +32,33 @@ class LoginController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
     }
 
-    protected function authenticated(Request $request, $user) {
+    /**
+     * Handle post-authentication logic.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return \Illuminate\Http\Response
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        // Check if the user account is deactivated
         if ($user->is_active != 1) {
             Auth::logout();
 
             return back()->with([
-                'account_deactivated' => 'Your account is deactivated! Please contact with Super Admin.'
+                'account_deactivated' => 'Your account is deactivated! Please contact the Super Admin.'
             ]);
         }
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // Optionally store the user ID in the session (Laravel already tracks it via Auth)
+        session(['user_id' => $user->id]);
+
+        return redirect()->intended($this->redirectTo);
     }
 }

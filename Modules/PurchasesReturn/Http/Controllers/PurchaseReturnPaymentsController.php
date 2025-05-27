@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Modules\PurchasesReturn\Entities\PurchaseReturn;
 use Modules\PurchasesReturn\Entities\PurchaseReturnPayment;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseReturnPaymentsController extends Controller
 {
@@ -45,6 +46,7 @@ class PurchaseReturnPaymentsController extends Controller
 
         DB::transaction(function () use ($request) {
             PurchaseReturnPayment::create([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'reference' => $request->reference,
                 'amount' => $request->amount,
@@ -119,6 +121,7 @@ class PurchaseReturnPaymentsController extends Controller
             ]);
 
             $purchaseReturnPayment->update([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'reference' => $request->reference,
                 'amount' => $request->amount,

@@ -20,8 +20,9 @@ class CurrencyDataTable extends DataTable
             });
     }
 
-    public function query(Currency $model) {
-        return $model->newQuery();
+    public function query(Currency $model)
+    {
+        return $model->newQuery()->where('user_id', auth()->id());
     }
 
     public function html() {

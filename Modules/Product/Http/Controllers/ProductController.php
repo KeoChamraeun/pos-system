@@ -26,12 +26,19 @@ class ProductController extends Controller
     public function create() {
         abort_if(Gate::denies('create_products'), 403);
 
-        return view('product::products.create');
+        $userId = auth()->id();
+        $categories = \Modules\Product\Entities\Category::where('user_id', $userId)->get();
+
+        return view('product::products.create', compact('categories'));
     }
 
 
+
     public function store(StoreProductRequest $request) {
-        $product = Product::create($request->except('document'));
+        $data = $request->except('document');
+        $data['user_id'] = auth()->id();
+
+        $product = Product::create($data);
 
         if ($request->has('document')) {
             foreach ($request->input('document', []) as $file) {
@@ -43,6 +50,7 @@ class ProductController extends Controller
 
         return redirect()->route('products.index');
     }
+
 
 
     public function show(Product $product) {

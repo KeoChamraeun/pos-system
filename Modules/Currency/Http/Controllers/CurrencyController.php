@@ -44,8 +44,10 @@ class CurrencyController extends Controller
             'symbol' => $request->symbol,
             'thousand_separator' => $request->thousand_separator,
             'decimal_separator' => $request->decimal_separator,
-            'exchange_rate' => $request->exchange_rate
+            'exchange_rate' => $request->exchange_rate,
+            'user_id' => auth()->id(), 
         ]);
+
 
         toast(__('Currency Created!'), 'success');
 

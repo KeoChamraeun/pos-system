@@ -15,6 +15,8 @@ class CreateAdjustmentsTable extends Migration
     {
         Schema::create('adjustments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id'); // <-- declare user_id column first
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // add foreign key constraint
             $table->date('date');
             $table->string('reference');
             $table->text('note')->nullable();
@@ -32,3 +34,4 @@ class CreateAdjustmentsTable extends Migration
         Schema::dropIfExists('adjustments');
     }
 }
+

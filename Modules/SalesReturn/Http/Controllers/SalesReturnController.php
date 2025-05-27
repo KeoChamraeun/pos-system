@@ -14,6 +14,7 @@ use Modules\SalesReturn\Entities\SaleReturnDetail;
 use Modules\SalesReturn\Entities\SaleReturnPayment;
 use Modules\SalesReturn\Http\Requests\StoreSaleReturnRequest;
 use Modules\SalesReturn\Http\Requests\UpdateSaleReturnRequest;
+use Illuminate\Support\Facades\Auth;
 
 class SalesReturnController extends Controller
 {
@@ -47,6 +48,7 @@ class SalesReturnController extends Controller
             }
 
             $sale_return = SaleReturn::create([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'customer_id' => $request->customer_id,
                 'customer_name' => Customer::findOrFail($request->customer_id)->customer_name,
@@ -66,6 +68,7 @@ class SalesReturnController extends Controller
 
             foreach (Cart::instance('sale_return')->content() as $cart_item) {
                 SaleReturnDetail::create([
+                    'user_id' => Auth::id(),
                     'sale_return_id' => $sale_return->id,
                     'product_id' => $cart_item->id,
                     'product_name' => $cart_item->name,
@@ -170,6 +173,7 @@ class SalesReturnController extends Controller
             }
 
             $sale_return->update([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'reference' => $request->reference,
                 'customer_id' => $request->customer_id,
@@ -190,6 +194,7 @@ class SalesReturnController extends Controller
 
             foreach (Cart::instance('sale_return')->content() as $cart_item) {
                 SaleReturnDetail::create([
+                    'user_id' => Auth::id(),
                     'sale_return_id' => $sale_return->id,
                     'product_id' => $cart_item->id,
                     'product_name' => $cart_item->name,

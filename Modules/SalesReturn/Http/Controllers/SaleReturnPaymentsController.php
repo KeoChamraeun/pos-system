@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Modules\SalesReturn\Entities\SaleReturn;
 use Modules\SalesReturn\Entities\SaleReturnPayment;
+use Illuminate\Support\Facades\Auth;
 
 class SaleReturnPaymentsController extends Controller
 {
@@ -45,6 +46,7 @@ class SaleReturnPaymentsController extends Controller
 
         DB::transaction(function () use ($request) {
             SaleReturnPayment::create([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'reference' => $request->reference,
                 'amount' => $request->amount,
@@ -119,6 +121,7 @@ class SaleReturnPaymentsController extends Controller
             ]);
 
             $saleReturnPayment->update([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'reference' => $request->reference,
                 'amount' => $request->amount,

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Gate;
 use Modules\Expense\Entities\ExpenseCategory;
+use Illuminate\Support\Facades\Auth;
 
 class ExpenseCategoriesController extends Controller
 {
@@ -27,6 +28,7 @@ class ExpenseCategoriesController extends Controller
         ]);
 
         ExpenseCategory::create([
+            'user_id' => Auth::id(),
             'category_name' => $request->category_name,
             'category_description' => $request->category_description
         ]);
@@ -53,6 +55,7 @@ class ExpenseCategoriesController extends Controller
         ]);
 
         $expenseCategory->update([
+            'user_id' => Auth::id(),
             'category_name' => $request->category_name,
             'category_description' => $request->category_description
         ]);

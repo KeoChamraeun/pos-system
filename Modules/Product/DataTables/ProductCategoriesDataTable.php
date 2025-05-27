@@ -11,21 +11,30 @@ class ProductCategoriesDataTable extends DataTable
 {
     public function dataTable($query)
     {
+        $userId = auth()->id(); // Get the logged-in user ID
+
         return datatables()
             ->eloquent($query)
             ->addColumn('product_image', function ($category) {
                 $image = $category->product_image ? asset('storage/' . $category->product_image) : asset('images/fallback_product_image.png');
                 return '<img src="' . $image . '" width="50" height="50" class="img-thumbnail">';
             })
-            ->addColumn('action', function ($category) {
-                return view('product::categories.partials.actions', compact('category'));
+            ->addColumn('action', function ($category) use ($userId) {
+                // Only show action buttons if the category belongs to the user
+                if ($category->user_id === $userId) {
+                    return view('product::categories.partials.actions', compact('category'));
+                }
+                return ''; // or return some notice/message if you want
             })
             ->rawColumns(['product_image', 'action']);
     }
 
     public function query(Category $model)
     {
-        return $model->newQuery();
+        $userId = auth()->id(); // Get the logged-in user ID
+
+        // Filter categories by user ID
+        return $model->newQuery()->where('user_id', $userId);
     }
 
     public function html()

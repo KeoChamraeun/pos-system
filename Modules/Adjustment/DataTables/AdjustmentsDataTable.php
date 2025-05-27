@@ -8,6 +8,7 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\Auth;
 
 class AdjustmentsDataTable extends DataTable
 {
@@ -25,11 +26,13 @@ class AdjustmentsDataTable extends DataTable
             ->filterColumn('adjusted_products_count', function ($query, $keyword) {
                 $query->having('adjusted_products_count', '=', (int)$keyword);
             })
-            ->rawColumns(['action']); 
+            ->rawColumns(['action']);
     }
-
-    public function query(Adjustment $model) {
-        return $model->newQuery()->withCount('adjustedProducts');
+    public function query(Adjustment $model)
+    {
+        return $model->newQuery()
+            ->withCount('adjustedProducts')
+            ->where('user_id', Auth::id());  // Only current user adjustments
     }
 
     public function html() {

@@ -15,6 +15,7 @@ class CreatePurchaseDetailsTable extends Migration
     {
         Schema::create('purchase_details', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('purchase_id');
             $table->unsignedBigInteger('product_id')->nullable();
             $table->string('product_name');
@@ -26,11 +27,12 @@ class CreatePurchaseDetailsTable extends Migration
             $table->integer('product_discount_amount');
             $table->string('product_discount_type')->default('fixed');
             $table->integer('product_tax_amount');
-            $table->foreign('purchase_id')->references('id')
-                ->on('purchases')->cascadeOnDelete();
-            $table->foreign('product_id')->references('id')
-                ->on('products')->nullOnDelete();
             $table->timestamps();
+
+            // Declare each foreign key only once
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->nullOnDelete();
         });
     }
 

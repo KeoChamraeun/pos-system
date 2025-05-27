@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCurrenciesTable extends Migration
 {
-    /**
+    /**currencies
      * Run the migrations.
      *
      * @return void
@@ -15,6 +15,8 @@ class CreateCurrenciesTable extends Migration
     {
         Schema::create('currencies', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('currency_name');
             $table->string('code');
             $table->string('symbol');

@@ -14,6 +14,7 @@ use Modules\Sale\Entities\SaleDetails;
 use Modules\Sale\Entities\SalePayment;
 use Modules\Sale\Http\Requests\StoreSaleRequest;
 use Modules\Sale\Http\Requests\UpdateSaleRequest;
+use Illuminate\Support\Facades\Auth;
 
 class SaleController extends Controller
 {
@@ -47,6 +48,7 @@ class SaleController extends Controller
             }
 
             $sale = Sale::create([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'customer_id' => $request->customer_id,
                 'customer_name' => Customer::findOrFail($request->customer_id)->customer_name,
@@ -66,6 +68,7 @@ class SaleController extends Controller
 
             foreach (Cart::instance('sale')->content() as $cart_item) {
                 SaleDetails::create([
+                    'user_id' => Auth::id(),
                     'sale_id' => $sale->id,
                     'product_id' => $cart_item->id,
                     'product_name' => $cart_item->name,
@@ -171,6 +174,7 @@ class SaleController extends Controller
             }
 
             $sale->update([
+                'user_id' => Auth::id(),
                 'date' => $request->date,
                 'reference' => $request->reference,
                 'customer_id' => $request->customer_id,
@@ -191,6 +195,7 @@ class SaleController extends Controller
 
             foreach (Cart::instance('sale')->content() as $cart_item) {
                 SaleDetails::create([
+                    'user_id' => Auth::id(),
                     'sale_id' => $sale->id,
                     'product_id' => $cart_item->id,
                     'product_name' => $cart_item->name,

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Gate;
 use Modules\People\Entities\Supplier;
+use Illuminate\Support\Facades\Auth;
 
 class SuppliersController extends Controller
 {
@@ -39,6 +40,7 @@ class SuppliersController extends Controller
         ]);
 
         Supplier::create([
+            'user_id' => Auth::id(),
             'supplier_name'  => $request->supplier_name,
             'supplier_phone' => $request->supplier_phone,
             'supplier_email' => $request->supplier_email,
@@ -80,6 +82,7 @@ class SuppliersController extends Controller
         ]);
 
         $supplier->update([
+            'user_id' => Auth::id(),
             'supplier_name'  => $request->supplier_name,
             'supplier_phone' => $request->supplier_phone,
             'supplier_email' => $request->supplier_email,

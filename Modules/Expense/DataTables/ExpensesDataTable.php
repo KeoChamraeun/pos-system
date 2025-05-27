@@ -8,6 +8,8 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\Auth;
+
 
 class ExpensesDataTable extends DataTable
 {
@@ -22,9 +24,9 @@ class ExpensesDataTable extends DataTable
                 return view('expense::expenses.partials.actions', compact('data'));
             });
     }
-
     public function query(Expense $model) {
-        return $model->newQuery()->with('category');
+        $userId = Auth::id();
+        return $model->newQuery()->where('user_id', $userId);
     }
 
     public function html() {

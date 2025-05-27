@@ -15,6 +15,8 @@ class CreateSaleReturnDetailsTable extends Migration
     {
         Schema::create('sale_return_details', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('sale_return_id');
             $table->unsignedBigInteger('product_id')->nullable();
             $table->string('product_name');

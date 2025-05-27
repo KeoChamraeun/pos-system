@@ -45,7 +45,7 @@
                                     <div class="input-group">
                                         <select class="form-control" name="category_id" id="category_id" required>
                                             <option value="" selected disabled>{{ __('Select Category') }}</option>
-                                            @foreach(\Modules\Product\Entities\Category::all() as $category)
+                                            @foreach($categories as $category)
                                                 <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                                             @endforeach
                                         </select>

@@ -9,6 +9,8 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\Auth;
+
 
 class ExpenseCategoriesDataTable extends DataTable
 {
@@ -34,10 +36,9 @@ class ExpenseCategoriesDataTable extends DataTable
             })
             ->rawColumns(['product_image', 'action']);
     }
-
-    public function query(Category $model)
-    {
-        return $model->newQuery();
+    public function query(Category $model) {
+        $userId = Auth::id();
+        return $model->newQuery()->where('user_id', $userId);
     }
 
     public function html()

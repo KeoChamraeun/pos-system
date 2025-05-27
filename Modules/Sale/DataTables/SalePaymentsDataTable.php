@@ -8,6 +8,8 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\Auth;
+
 
 class SalePaymentsDataTable extends DataTable
 {
@@ -22,11 +24,10 @@ class SalePaymentsDataTable extends DataTable
                 return view('sale::payments.partials.actions', compact('data'));
             });
     }
-
     public function query(SalePayment $model) {
-        return $model->newQuery()->bySale()->with('sale');
+        $userId = Auth::id();
+        return $model->newQuery()->where('user_id', $userId);
     }
-
     public function html() {
         return $this->builder()
             ->setTableId('sale-payments-table')

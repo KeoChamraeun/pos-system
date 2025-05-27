@@ -23,15 +23,20 @@
     </li>
 
     @can('show_notifications')
+        @php
+            $userId = auth()->id();
+
+            $low_quantity_products = \Modules\Product\Entities\Product::select('id', 'product_quantity', 'product_stock_alert', 'product_code')
+                ->whereColumn('product_quantity', '<=', 'product_stock_alert')
+                ->where('user_id', $userId)
+                ->get();
+        @endphp
+
         <li class="c-header-nav-item dropdown d-md-down-none mr-2">
-            <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                aria-expanded="false">
                 <i class="bi bi-bell" style="font-size: 20px;"></i>
-                <span class="badge badge-pill badge-danger">
-                @php
-        $low_quantity_products = \Modules\Product\Entities\Product::select('id', 'product_quantity', 'product_stock_alert', 'product_code')->whereColumn('product_quantity', '<=', 'product_stock_alert')->get();
-        echo $low_quantity_products->count();
-                @endphp
-                </span>
+                <span class="badge badge-pill badge-danger">{{ $low_quantity_products->count() }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg pt-0">
                 <div class="dropdown-header bg-light">
@@ -39,7 +44,8 @@
                 </div>
                 @forelse($low_quantity_products as $product)
                     <a class="dropdown-item" href="{{ route('products.show', $product->id) }}">
-                        <i class="bi bi-hash mr-1 text-primary"></i> {{ __('Product') }} : "{{ $product->product_code }}" {{ __('is low in quantity!') }}
+                        <i class="bi bi-hash mr-1 text-primary"></i> {{ __('Product') }} : "{{ $product->product_code }}"
+                        {{ __('is low in quantity!') }}
                     </a>
                 @empty
                     <a class="dropdown-item" href="#">
@@ -49,6 +55,7 @@
             </div>
         </li>
     @endcan
+
 
     <li class="c-header-nav-item dropdown">
         <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button"

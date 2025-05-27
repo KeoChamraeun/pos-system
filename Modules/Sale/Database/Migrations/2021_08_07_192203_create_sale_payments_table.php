@@ -15,6 +15,8 @@ class CreateSalePaymentsTable extends Migration
     {
         Schema::create('sale_payments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('sale_id');
             $table->integer('amount');
             $table->date('date');

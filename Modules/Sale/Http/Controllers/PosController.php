@@ -14,6 +14,8 @@ use Modules\Sale\Entities\Sale;
 use Modules\Sale\Entities\SaleDetails;
 use Modules\Sale\Entities\SalePayment;
 use Modules\Sale\Http\Requests\StorePosSaleRequest;
+use Illuminate\Support\Facades\Auth;
+
 
 class PosController extends Controller
 {
@@ -41,6 +43,7 @@ class PosController extends Controller
             }
 
             $sale = Sale::create([
+                'user_id' => Auth::id(),
                 'date' => now()->format('Y-m-d'),
                 'reference' => 'PSL',
                 'customer_id' => $request->customer_id,
@@ -61,6 +64,7 @@ class PosController extends Controller
 
             foreach (Cart::instance('sale')->content() as $cart_item) {
                 SaleDetails::create([
+                    'user_id' => Auth::id(),
                     'sale_id' => $sale->id,
                     'product_id' => $cart_item->id,
                     'product_name' => $cart_item->name,
@@ -84,6 +88,7 @@ class PosController extends Controller
 
             if ($sale->paid_amount > 0) {
                 SalePayment::create([
+                    'user_id' => Auth::id(),
                     'date' => now()->format('Y-m-d'),
                     'reference' => 'INV/'.$sale->reference,
                     'amount' => $sale->paid_amount,

@@ -8,6 +8,8 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\Auth;
+
 
 class PurchasePaymentsDataTable extends DataTable
 {
@@ -21,9 +23,9 @@ class PurchasePaymentsDataTable extends DataTable
                 return view('purchase::payments.partials.actions', compact('data'));
             });
     }
-
     public function query(PurchasePayment $model) {
-        return $model->newQuery()->byPurchase()->with('purchase');
+        $userId = Auth::id();
+        return $model->newQuery()->where('user_id', $userId);
     }
 
     public function html() {
