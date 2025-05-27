@@ -66,28 +66,28 @@ class PurchasesReturnController extends Controller
                 'discount_amount' => Cart::instance('purchase_return')->discount() * 100,
             ]);
 
-            foreach (Cart::instance('purchase_return')->content() as $cart_item) {
-                PurchaseReturnDetail::create([
-                    'purchase_return_id' => $purchase_return->id,
-                    'product_id' => $cart_item->id,
-                    'product_name' => $cart_item->name,
-                    'product_code' => $cart_item->options->code,
-                    'quantity' => $cart_item->qty,
-                    'price' => $cart_item->price * 100,
-                    'unit_price' => $cart_item->options->unit_price * 100,
-                    'sub_total' => $cart_item->options->sub_total * 100,
-                    'product_discount_amount' => $cart_item->options->product_discount * 100,
-                    'product_discount_type' => $cart_item->options->product_discount_type,
-                    'product_tax_amount' => $cart_item->options->product_tax * 100,
-                ]);
+            // foreach (Cart::instance('purchase_return')->content() as $cart_item) {
+            //     PurchaseReturnDetail::create([
+            //         'purchase_return_id' => $purchase_return->id,
+            //         'product_id' => $cart_item->id,
+            //         'product_name' => $cart_item->name,
+            //         'product_code' => $cart_item->options->code,
+            //         'quantity' => $cart_item->qty,
+            //         'price' => $cart_item->price * 100,
+            //         'unit_price' => $cart_item->options->unit_price * 100,
+            //         'sub_total' => $cart_item->options->sub_total * 100,
+            //         'product_discount_amount' => $cart_item->options->product_discount * 100,
+            //         'product_discount_type' => $cart_item->options->product_discount_type,
+            //         'product_tax_amount' => $cart_item->options->product_tax * 100,
+            //     ]);
 
-                if ($request->status == 'Shipped' || $request->status == 'Completed') {
-                    $product = Product::findOrFail($cart_item->id);
-                    $product->update([
-                        'product_quantity' => $product->product_quantity - $cart_item->qty
-                    ]);
-                }
-            }
+            //     if ($request->status == 'Shipped' || $request->status == 'Completed') {
+            //         $product = Product::findOrFail($cart_item->id);
+            //         $product->update([
+            //             'product_quantity' => $product->product_quantity - $cart_item->qty
+            //         ]);
+            //     }
+            // }
 
             Cart::instance('purchase_return')->destroy();
 
@@ -191,28 +191,28 @@ class PurchasesReturnController extends Controller
                 'discount_amount' => Cart::instance('purchase_return')->discount() * 100,
             ]);
 
-            foreach (Cart::instance('purchase_return')->content() as $cart_item) {
-                PurchaseReturnDetail::create([
-                    'purchase_return_id' => $purchase_return->id,
-                    'product_id' => $cart_item->id,
-                    'product_name' => $cart_item->name,
-                    'product_code' => $cart_item->options->code,
-                    'quantity' => $cart_item->qty,
-                    'price' => $cart_item->price * 100,
-                    'unit_price' => $cart_item->options->unit_price * 100,
-                    'sub_total' => $cart_item->options->sub_total * 100,
-                    'product_discount_amount' => $cart_item->options->product_discount * 100,
-                    'product_discount_type' => $cart_item->options->product_discount_type,
-                    'product_tax_amount' => $cart_item->options->product_tax * 100,
-                ]);
+            // foreach (Cart::instance('purchase_return')->content() as $cart_item) {
+            //     PurchaseReturnDetail::create([
+            //         'purchase_return_id' => $purchase_return->id,
+            //         'product_id' => $cart_item->id,
+            //         'product_name' => $cart_item->name,
+            //         'product_code' => $cart_item->options->code,
+            //         'quantity' => $cart_item->qty,
+            //         'price' => $cart_item->price * 100,
+            //         'unit_price' => $cart_item->options->unit_price * 100,
+            //         'sub_total' => $cart_item->options->sub_total * 100,
+            //         'product_discount_amount' => $cart_item->options->product_discount * 100,
+            //         'product_discount_type' => $cart_item->options->product_discount_type,
+            //         'product_tax_amount' => $cart_item->options->product_tax * 100,
+            //     ]);
 
-                if ($request->status == 'Shipped' || $request->status == 'Completed') {
-                    $product = Product::findOrFail($cart_item->id);
-                    $product->update([
-                        'product_quantity' => $product->product_quantity - $cart_item->qty
-                    ]);
-                }
-            }
+            //     if ($request->status == 'Shipped' || $request->status == 'Completed') {
+            //         $product = Product::findOrFail($cart_item->id);
+            //         $product->update([
+            //             'product_quantity' => $product->product_quantity - $cart_item->qty
+            //         ]);
+            //     }
+            // }
 
             Cart::instance('purchase_return')->destroy();
         });
