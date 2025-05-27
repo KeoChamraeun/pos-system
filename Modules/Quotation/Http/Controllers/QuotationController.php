@@ -52,21 +52,21 @@ class QuotationController extends Controller
                 'discount_amount' => Cart::instance('quotation')->discount() * 100,
             ]);
 
-            foreach (Cart::instance('quotation')->content() as $cart_item) {
-                QuotationDetails::create([
-                    'quotation_id' => $quotation->id,
-                    'product_id' => $cart_item->id,
-                    'product_name' => $cart_item->name,
-                    'product_code' => $cart_item->options->code,
-                    'quantity' => $cart_item->qty,
-                    'price' => $cart_item->price * 100,
-                    'unit_price' => $cart_item->options->unit_price * 100,
-                    'sub_total' => $cart_item->options->sub_total * 100,
-                    'product_discount_amount' => $cart_item->options->product_discount * 100,
-                    'product_discount_type' => $cart_item->options->product_discount_type,
-                    'product_tax_amount' => $cart_item->options->product_tax * 100,
-                ]);
-            }
+            // foreach (Cart::instance('quotation')->content() as $cart_item) {
+            //     QuotationDetails::create([
+            //         'quotation_id' => $quotation->id,
+            //         'product_id' => $cart_item->id,
+            //         'product_name' => $cart_item->name,
+            //         'product_code' => $cart_item->options->code,
+            //         'quantity' => $cart_item->qty,
+            //         'price' => $cart_item->price * 100,
+            //         'unit_price' => $cart_item->options->unit_price * 100,
+            //         'sub_total' => $cart_item->options->sub_total * 100,
+            //         'product_discount_amount' => $cart_item->options->product_discount * 100,
+            //         'product_discount_type' => $cart_item->options->product_discount_type,
+            //         'product_tax_amount' => $cart_item->options->product_tax * 100,
+            //     ]);
+            // }
 
             Cart::instance('quotation')->destroy();
         });

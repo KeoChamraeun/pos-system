@@ -63,32 +63,33 @@ class PurchaseController extends Controller
                 'discount_amount' => Cart::instance('purchase')->discount() * 100,
             ]);
 
-            foreach (Cart::instance('purchase')->content() as $item) {
-                PurchaseDetail::create([
-                    'user_id' => Auth::id(),
-                    'purchase_id' => $purchase->id,
-                    'product_id' => $item->id,
-                    'product_name' => $item->name,
-                    'product_code' => $item->options->code,
-                    'quantity' => $item->qty,
-                    'price' => $item->price * 100,
-                    'unit_price' => $item->options->unit_price * 100,
-                    'sub_total' => $item->options->sub_total * 100,
-                    'product_discount_amount' => $item->options->product_discount * 100,
-                    'product_discount_type' => $item->options->product_discount_type,
-                    'product_tax_amount' => $item->options->product_tax * 100,
-                ]);
+            // foreach (Cart::instance('purchase')->content() as $item) {
+            //     PurchaseDetail::create([
+            //         'user_id' => Auth::id(),
+            //         'purchase_id' => $purchase->id,
+            //         'product_id' => $item->id,
+            //         'product_name' => $item->name,
+            //         'product_code' => $item->options->code,
+            //         'quantity' => $item->qty,
+            //         'price' => $item->price * 100,
+            //         'unit_price' => $item->options->unit_price * 100,
+            //         'sub_total' => $item->options->sub_total * 100,
+            //         'product_discount_amount' => $item->options->product_discount * 100,
+            //         'product_discount_type' => $item->options->product_discount_type,
+            //         'product_tax_amount' => $item->options->product_tax * 100,
+            //     ]);
 
-                if ($request->status === 'Completed') {
-                    $product = Product::findOrFail($item->id);
-                    $product->increment('product_quantity', $item->qty);
-                }
-            }
+            //     if ($request->status === 'Completed') {
+            //         $product = Product::findOrFail($item->id);
+            //         $product->increment('product_quantity', $item->qty);
+            //     }
+            // }
 
             Cart::instance('purchase')->destroy();
 
             if ($purchase->paid_amount > 0) {
                 PurchasePayment::create([
+                    'user_id' => Auth::id(),
                     'date' => $request->date,
                     'reference' => 'INV/' . $purchase->reference,
                     'amount' => $purchase->paid_amount,
