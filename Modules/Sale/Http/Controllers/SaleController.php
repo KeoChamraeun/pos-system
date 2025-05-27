@@ -94,6 +94,7 @@ class SaleController extends Controller
 
             if ($sale->paid_amount > 0) {
                 SalePayment::create([
+                    'user_id' => Auth::id(),
                     'date' => $request->date,
                     'reference' => 'INV/'.$sale->reference,
                     'amount' => $sale->paid_amount,
@@ -129,6 +130,7 @@ class SaleController extends Controller
 
         foreach ($sale_details as $sale_detail) {
             $cart->add([
+                'user_id' => Auth::id(),
                 'id'      => $sale_detail->product_id,
                 'name'    => $sale_detail->product_name,
                 'qty'     => $sale_detail->quantity,
