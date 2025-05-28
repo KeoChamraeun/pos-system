@@ -16,14 +16,14 @@ class SettingDatabaseSeeder extends Seeder
     public function run()
     {
         Setting::create([
-            'company_name' => 'Triangle POS',
-            'company_email' => 'company@test.com',
-            'company_phone' => '012345678901',
-            'notification_email' => 'notification@test.com',
+            'company_name' => 'RAEUN POS',
+            'company_email' => 'keochamraeun54@gmail.com',
+            'company_phone' => '0886576689',
+            'notification_email' => 'keochamraeun54@gmail.com',
             'default_currency_id' => 1,
             'default_currency_position' => 'prefix',
-            'footer_text' => 'Triangle Pos © 2021 || Developed by <strong><a target="_blank" href="https://fahimanzam.me">Fahim Anzam</a></strong>',
-            'company_address' => 'Tangail, Bangladesh'
+            'footer_text' => 'Triangle Pos © 2025 || Developed by <strong><a target="_blank">KEO CHAMRAEUN</a></strong>',
+            'company_address' => 'Tangail, RAEUN'
         ]);
     }
 }
