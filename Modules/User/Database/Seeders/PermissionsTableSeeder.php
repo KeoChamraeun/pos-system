@@ -5,16 +5,18 @@ namespace Modules\User\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class PermissionsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
+        // Clear cached roles and permissions
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+
         $permissions = [
             // User Management
             'edit_own_profile',
@@ -117,17 +119,17 @@ class PermissionsTableSeeder extends Seeder
             'access_units',
         ];
 
+        // Create permissions
         foreach ($permissions as $permission) {
-            if (!Permission::where('name', $permission)->where('guard_name', 'web')->exists()) {
-                Permission::create([
-                    'name' => $permission,
-                    'guard_name' => 'web',
-                ]);
-            }
+            Permission::firstOrCreate([
+                'name' => $permission,
+                'guard_name' => 'web',
+            ]);
         }
 
+        // Assign permissions to the Admin role
         $role = Role::firstOrCreate(['name' => 'Admin']);
-        $role->givePermissionTo($permissions);
-        $role->revokePermissionTo('access_user_management');
+        $role->syncPermissions($permissions);
+        $role->revokePermissionTo('access_user_management'); // Optionally revoke specific permission
     }
 }
