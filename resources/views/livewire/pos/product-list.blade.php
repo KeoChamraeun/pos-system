@@ -1,5 +1,5 @@
 <div>
-    <div class="card border-0 shadow-sm mt-3">
+    <div class="mt-3">
         <div class="card-body">
             <livewire:pos.filter :categories="$categories"/>
             <div class="row position-relative">
@@ -10,7 +10,7 @@
                 </div>
                 @forelse($products as $product)
                     <div wire:click.prevent="selectProduct({{ $product }})" class="col-lg-4 col-md-6 col-xl-3" style="cursor: pointer;">
-                        <div class="card border-0 shadow h-100">
+                        <div class="card cursor-pointer px-1 py-1 h-100">
                             <div class="position-relative">
                                 <img height="200" src="{{ $product->getFirstMediaUrl('images') }}" class="card-img-top" alt="Product Image">
                                 <div class="badge badge-info mb-3 position-absolute" style="left:10px;top: 10px;">Stock: {{ $product->product_quantity }}</div>
@@ -39,4 +39,33 @@
             </div>
         </div>
     </div>
+    <script>
+        // JavaScript to dynamically populate the card
+        document.addEventListener('DOMContentLoaded', function () {
+            // Sample product data (replace with actual data source if needed)
+            const product = {
+                imageUrl: 'path/to/vegetable-salad-image.jpg', // Replace with actual image URL
+                name: 'Tasty Vegetable Salad',
+                price: 1799,
+                isVegetarian: true,
+                discount: '20% Off'
+            };
+
+            // Populate the card with product data
+            document.getElementById('productImage').src = product.imageUrl;
+            document.getElementById('productName').textContent = product.name;
+            document.getElementById('productPrice').textContent = `$${product.price}`;
+            document.getElementById('discountBadge').textContent = product.discount;
+
+            // Show/hide vegetarian badge based on product data
+            if (!product.isVegetarian) {
+                document.getElementById('vegBadge').style.display = 'none';
+            }
+
+            // Add event listener to the "Add to Dish" button
+            document.getElementById('addToDishBtn').addEventListener('click', function () {
+                alert(`${product.name} added to your dish!`);
+            });
+        });
+    </script>
 </div>
