@@ -90,7 +90,7 @@
                         <tr class="table-primary">
                             <th>{{ __('Grand Total') }}</th>
                             @php
-$total_with_shipping = Cart::instance($cart_instance)->total() + (float) $shipping
+                                $total_with_shipping = Cart::instance($cart_instance)->total() + (float) $shipping
                             @endphp
                             <th>(=) {{ format_currency($total_with_shipping) }}</th>
                         </tr>
@@ -134,7 +134,6 @@ $total_with_shipping = Cart::instance($cart_instance)->total() + (float) $shippi
     {{-- Checkout Modal --}}
     @include('livewire.pos.includes.checkout-modal')
     <style>
-<style>
         .btn-outline-secondary i {
             margin-right: 5px;
         }
@@ -151,7 +150,5 @@ $total_with_shipping = Cart::instance($cart_instance)->total() + (float) $shippi
         .text-danger {
             color: #dc3545;
         }
-    </style>
-
     </style>
 </div>

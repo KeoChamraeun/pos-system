@@ -32,26 +32,30 @@ class UsersController extends Controller
         $request->validate([
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8|max:255|confirmed'
+            'password' => 'required|string|min:8|max:255|confirmed',
         ]);
 
         $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
-            'is_active' => $request->has('is_active') // Proper boolean handling
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'password'  => Hash::make($request->password),
+            'is_active' => $request->has('is_active'),
         ]);
 
         $user->assignRole($request->role);
 
+        // Handle avatar image
         if ($request->has('image')) {
             $tempFile = Upload::where('folder', $request->image)->first();
+            $filePath = 'public/temp/' . $request->image . '/' . ($tempFile->filename ?? null);
 
-            if ($tempFile) {
-                $user->addMedia(Storage::path('public/temp/' . $request->image . '/' . $tempFile->filename))->toMediaCollection('avatars');
+            if ($tempFile && Storage::exists($filePath)) {
+                $user->addMedia(Storage::path($filePath))->toMediaCollection('avatars');
 
                 Storage::deleteDirectory('public/temp/' . $request->image);
                 $tempFile->delete();
+            } else {
+                toast('Temp image file not found or already deleted.', 'error');
             }
         }
 
@@ -70,30 +74,35 @@ class UsersController extends Controller
         abort_if(Gate::denies('access_user_management'), 403);
 
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|max:255|unique:users,email,'.$user->id,
+            'name'  => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
         ]);
 
         $user->update([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'is_active' => $request->has('is_active') // Proper boolean handling
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'is_active' => $request->has('is_active'),
         ]);
 
         $user->syncRoles($request->role);
 
+        // Handle avatar update
         if ($request->has('image')) {
             $tempFile = Upload::where('folder', $request->image)->first();
+            $filePath = 'public/temp/' . $request->image . '/' . ($tempFile->filename ?? null);
 
+            // Delete existing avatar
             if ($user->getFirstMedia('avatars')) {
                 $user->getFirstMedia('avatars')->delete();
             }
 
-            if ($tempFile) {
-                $user->addMedia(Storage::path('public/temp/' . $request->image . '/' . $tempFile->filename))->toMediaCollection('avatars');
+            if ($tempFile && Storage::exists($filePath)) {
+                $user->addMedia(Storage::path($filePath))->toMediaCollection('avatars');
 
                 Storage::deleteDirectory('public/temp/' . $request->image);
                 $tempFile->delete();
+            } else {
+                toast('Temp image file not found or already deleted.', 'error');
             }
         }
 

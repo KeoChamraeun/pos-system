@@ -472,9 +472,9 @@
                                                 <div class="col-6">
                                                     <div class="custom-control custom-switch">
                                                         <input type="checkbox" class="custom-control-input"
-                                                               id="delete_customers" name="permissions[]"
-                                                               value="delete_customers" {{ old('delete_customers') ? 'checked' : '' }}>
-                                                        <label class="custom-control-label" for="delete_customers">{{ __('Delete') }}</label>
+                                                               id="delete_suppliers" name="permissions[]"
+                                                               value="delete_suppliers" {{ old('delete_suppliers') ? 'checked' : '' }}>
+                                                        <label class="custom-control-label" for="delete_suppliers">{{ __('Delete') }}</label>
                                                     </div>
                                                 </div>
                                             </div>

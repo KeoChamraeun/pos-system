@@ -70,7 +70,7 @@
             </div>
         @endcan
 
-        @can('show_weekly_sales_purchases|show_month_overview')
+        @can('show_weekly_sales_purchases|show_monthoverview')
             <div class="row mb-4">
                 @can('show_weekly_sales_purchases')
                     <div class="col-lg-7">
@@ -84,7 +84,7 @@
                         </div>
                     </div>
                 @endcan
-                @can('show_month_overview')
+                @can('show_monthoverview')
                     <div class="col-lg-5">
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-header">

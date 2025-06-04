@@ -13,27 +13,30 @@ use Modules\Sale\Entities\Sale;
 use Modules\Sale\Entities\SalePayment;
 use Modules\SalesReturn\Entities\SaleReturn;
 use Modules\SalesReturn\Entities\SaleReturnPayment;
-use Illuminate\Support\Facades\Auth;    // <--- Add this
-
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-
-    public function index() {
+    public function index()
+    {
         $userId = Auth::id();
 
         $sales = Sale::completed()
+            ->where('user_id', $userId)
             ->sum('total_amount');
 
         $sale_returns = SaleReturn::completed()
+            ->where('user_id', $userId)
             ->sum('total_amount');
 
         $purchase_returns = PurchaseReturn::completed()
+            ->where('user_id', $userId)
             ->sum('total_amount');
 
         $product_costs = 0;
 
         $salesWithDetails = Sale::completed()
+            ->where('user_id', $userId)
             ->with('saleDetails')
             ->get();
 
@@ -56,19 +59,28 @@ class HomeController extends Controller
         ]);
     }
 
-
-    public function currentMonthChart() {
+    public function currentMonthChart()
+    {
         abort_if(!request()->ajax(), 404);
 
-        $currentMonthSales = Sale::where('status', 'Completed')->whereMonth('date', date('m'))
-                ->whereYear('date', date('Y'))
-                ->sum('total_amount') / 100;
-        $currentMonthPurchases = Purchase::where('status', 'Completed')->whereMonth('date', date('m'))
-                ->whereYear('date', date('Y'))
-                ->sum('total_amount') / 100;
-        $currentMonthExpenses = Expense::whereMonth('date', date('m'))
-                ->whereYear('date', date('Y'))
-                ->sum('amount') / 100;
+        $userId = Auth::id();
+
+        $currentMonthSales = Sale::where('status', 'Completed')
+            ->where('user_id', $userId)
+            ->whereMonth('date', date('m'))
+            ->whereYear('date', date('Y'))
+            ->sum('total_amount') / 100;
+
+        $currentMonthPurchases = Purchase::where('status', 'Completed')
+            ->where('user_id', $userId)
+            ->whereMonth('date', date('m'))
+            ->whereYear('date', date('Y'))
+            ->sum('total_amount') / 100;
+
+        $currentMonthExpenses = Expense::where('user_id', $userId)
+            ->whereMonth('date', date('m'))
+            ->whereYear('date', date('Y'))
+            ->sum('amount') / 100;
 
         return response()->json([
             'sales'     => $currentMonthSales,
@@ -77,8 +89,8 @@ class HomeController extends Controller
         ]);
     }
 
-
-    public function salesPurchasesChart() {
+    public function salesPurchasesChart()
+    {
         abort_if(!request()->ajax(), 404);
 
         $sales = $this->salesChartData();
@@ -87,9 +99,11 @@ class HomeController extends Controller
         return response()->json(['sales' => $sales, 'purchases' => $purchases]);
     }
 
-
-    public function paymentChart() {
+    public function paymentChart()
+    {
         abort_if(!request()->ajax(), 404);
+
+        $userId = Auth::id();
 
         $dates = collect();
         foreach (range(-11, 0) as $i) {
@@ -99,45 +113,60 @@ class HomeController extends Controller
 
         $date_range = Carbon::today()->subYear()->format('Y-m-d');
 
-        $sale_payments = SalePayment::where('date', '>=', $date_range)
+        $sale_payments = SalePayment::where('user_id', $userId)
+            ->where('date', '>=', $date_range)
             ->select([
                 DB::raw("DATE_FORMAT(date, '%m-%Y') as month"),
                 DB::raw("SUM(amount) as amount")
             ])
-            ->groupBy('month')->orderBy('month')
-            ->get()->pluck('amount', 'month');
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get()
+            ->pluck('amount', 'month');
 
-        $sale_return_payments = SaleReturnPayment::where('date', '>=', $date_range)
+        $sale_return_payments = SaleReturnPayment::where('user_id', $userId)
+            ->where('date', '>=', $date_range)
             ->select([
                 DB::raw("DATE_FORMAT(date, '%m-%Y') as month"),
                 DB::raw("SUM(amount) as amount")
             ])
-            ->groupBy('month')->orderBy('month')
-            ->get()->pluck('amount', 'month');
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get()
+            ->pluck('amount', 'month');
 
-        $purchase_payments = PurchasePayment::where('date', '>=', $date_range)
+        $purchase_payments = PurchasePayment::where('user_id', $userId)
+            ->where('date', '>=', $date_range)
             ->select([
                 DB::raw("DATE_FORMAT(date, '%m-%Y') as month"),
                 DB::raw("SUM(amount) as amount")
             ])
-            ->groupBy('month')->orderBy('month')
-            ->get()->pluck('amount', 'month');
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get()
+            ->pluck('amount', 'month');
 
-        $purchase_return_payments = PurchaseReturnPayment::where('date', '>=', $date_range)
+        $purchase_return_payments = PurchaseReturnPayment::where('user_id', $userId)
+            ->where('date', '>=', $date_range)
             ->select([
                 DB::raw("DATE_FORMAT(date, '%m-%Y') as month"),
                 DB::raw("SUM(amount) as amount")
             ])
-            ->groupBy('month')->orderBy('month')
-            ->get()->pluck('amount', 'month');
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get()
+            ->pluck('amount', 'month');
 
-        $expenses = Expense::where('date', '>=', $date_range)
+        $expenses = Expense::where('user_id', $userId)
+            ->where('date', '>=', $date_range)
             ->select([
                 DB::raw("DATE_FORMAT(date, '%m-%Y') as month"),
                 DB::raw("SUM(amount) as amount")
             ])
-            ->groupBy('month')->orderBy('month')
-            ->get()->pluck('amount', 'month');
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get()
+            ->pluck('amount', 'month');
 
         $payment_received = array_merge_numeric_values($sale_payments, $purchase_return_payments);
         $payment_sent = array_merge_numeric_values($purchase_payments, $sale_return_payments, $expenses);
@@ -165,7 +194,10 @@ class HomeController extends Controller
         ]);
     }
 
-    public function salesChartData() {
+    public function salesChartData()
+    {
+        $userId = Auth::id();
+
         $dates = collect();
         foreach (range(-6, 0) as $i) {
             $date = Carbon::now()->addDays($i)->format('d-m-y');
@@ -175,11 +207,12 @@ class HomeController extends Controller
         $date_range = Carbon::today()->subDays(6);
 
         $sales = Sale::where('status', 'Completed')
+            ->where('user_id', $userId)
             ->where('date', '>=', $date_range)
             ->groupBy(DB::raw("DATE_FORMAT(date,'%d-%m-%y')"))
             ->orderBy('date')
             ->get([
-                DB::raw(DB::raw("DATE_FORMAT(date,'%d-%m-%y') as date")),
+                DB::raw("DATE_FORMAT(date,'%d-%m-%y') as date"),
                 DB::raw('SUM(total_amount) AS count'),
             ])
             ->pluck('count', 'date');
@@ -193,11 +226,13 @@ class HomeController extends Controller
             $days[] = $key;
         }
 
-        return response()->json(['data' => $data, 'days' => $days]);
+        return ['data' => $data, 'days' => $days];
     }
 
+    public function purchasesChartData()
+    {
+        $userId = Auth::id();
 
-    public function purchasesChartData() {
         $dates = collect();
         foreach (range(-6, 0) as $i) {
             $date = Carbon::now()->addDays($i)->format('d-m-y');
@@ -207,11 +242,12 @@ class HomeController extends Controller
         $date_range = Carbon::today()->subDays(6);
 
         $purchases = Purchase::where('status', 'Completed')
+            ->where('user_id', $userId)
             ->where('date', '>=', $date_range)
             ->groupBy(DB::raw("DATE_FORMAT(date,'%d-%m-%y')"))
             ->orderBy('date')
             ->get([
-                DB::raw(DB::raw("DATE_FORMAT(date,'%d-%m-%y') as date")),
+                DB::raw("DATE_FORMAT(date,'%d-%m-%y') as date"),
                 DB::raw('SUM(total_amount) AS count'),
             ])
             ->pluck('count', 'date');
@@ -225,7 +261,6 @@ class HomeController extends Controller
             $days[] = $key;
         }
 
-        return response()->json(['data' => $data, 'days' => $days]);
-
+        return ['data' => $data, 'days' => $days];
     }
 }

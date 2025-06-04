@@ -40,29 +40,21 @@
         </div>
     </div>
     <script>
-        // JavaScript to dynamically populate the card
         document.addEventListener('DOMContentLoaded', function () {
-            // Sample product data (replace with actual data source if needed)
             const product = {
-                imageUrl: 'path/to/vegetable-salad-image.jpg', // Replace with actual image URL
+                imageUrl: 'path/to/vegetable-salad-image.jpg', 
                 name: 'Tasty Vegetable Salad',
                 price: 1799,
                 isVegetarian: true,
                 discount: '20% Off'
             };
-
-            // Populate the card with product data
             document.getElementById('productImage').src = product.imageUrl;
             document.getElementById('productName').textContent = product.name;
             document.getElementById('productPrice').textContent = `$${product.price}`;
             document.getElementById('discountBadge').textContent = product.discount;
-
-            // Show/hide vegetarian badge based on product data
             if (!product.isVegetarian) {
                 document.getElementById('vegBadge').style.display = 'none';
             }
-
-            // Add event listener to the "Add to Dish" button
             document.getElementById('addToDishBtn').addEventListener('click', function () {
                 alert(`${product.name} added to your dish!`);
             });
