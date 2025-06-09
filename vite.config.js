@@ -12,4 +12,8 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        outDir: 'dist', // Change output to dist
+        assetsDir: 'assets', // Keep assets in dist/assets
+    },
 });
