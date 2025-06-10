@@ -23,12 +23,15 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
-        Model::preventLazyLoading(!app()->isProduction());
+ // app/Providers/AppServiceProvider.php
 
-        if (app()->isProduction()) {
-            URL::forceScheme('https');  // <-- Force HTTPS only in production
-        }
+// use Illuminate\Support\Facades\URL;
+
+public function boot()
+{
+    if (env('APP_ENV') !== 'local') {
+        URL::forceScheme('https');
     }
+}
+
 }
