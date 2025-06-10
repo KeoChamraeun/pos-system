@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\URL;  // <-- Add this import
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // Register services if needed
     }
 
     /**
@@ -23,15 +23,15 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
- // app/Providers/AppServiceProvider.php
+    public function boot()
+    {
+        // Force HTTPS in production (non-local environments)
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+            $this->app['request']->server->set('HTTPS', true);
+        }
 
-// use Illuminate\Support\Facades\URL;
-
-public function boot()
-{
-    if (env('APP_ENV') !== 'local') {
-        URL::forceScheme('https');
+        // Optional: Enable strict mode for Eloquent models
+        Model::shouldBeStrict(! $this->app->isProduction());
     }
-}
-
 }
