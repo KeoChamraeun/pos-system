@@ -123,7 +123,3 @@
             integrity="sha512-asxKqQghC1oBShyhiBwA+YgotaSYKxGP1rcSYTDrB0U6DxwlJjU59B67U8+5/++uFjcuVM8Hh5cokLjZlhm3Vg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endsection
-
-@push('page_scripts')
-    @vite('resources/js/chart-config.js')
-@endpush
