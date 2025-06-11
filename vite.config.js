@@ -12,12 +12,14 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    build: {
-        outDir: 'public/build',  // Required for Laravel to find manifest.json
-        assetsDir: '',           // Default is 'assets', but Laravel works fine with ''
-        manifest: true,          // Required for ViteManifest
-    },
     server: {
-        host: true,
+        host: true,         // Expose to network
+        port: 80,           // Set to port 80 or your desired port
+        strictPort: true    // Fail if port is already taken (optional)
+    },
+    build: {
+        outDir: 'public/build',
+        assetsDir: '',
+        manifest: true,
     },
 });

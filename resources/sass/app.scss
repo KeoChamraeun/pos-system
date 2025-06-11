@@ -1,22 +1,21 @@
 // CoreUI
-@import '@coreui/coreui/scss/coreui';
+@use '@coreui/coreui/scss/coreui' as *;
 
-//Extra Overrides
-//.c-sidebar {
-//    background: #0f766e;
-//    color: #fff;
-//}
-//
+// Extra Overrides
+// .c-sidebar {
+//     background: #0f766e;
+//     color: #fff;
+// }
+
 .c-sidebar .c-sidebar-nav-link.c-active, .c-sidebar .c-active.c-sidebar-nav-dropdown-toggle {
     color: #fff;
     background: $primary;
 }
-//
-//
-//.c-sidebar .c-sidebar-nav-link:hover {
-//    color: #fff;
-//    background: #0d9488;
-//}
+
+// .c-sidebar .c-sidebar-nav-link:hover {
+//     color: #fff;
+//     background: #0d9488;
+// }
 
 .btn:not([class*=ghost]):not([class*=link]):not([class*=outline]):not([class*=transparent]) {
     border: 0;
