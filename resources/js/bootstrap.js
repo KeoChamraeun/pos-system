@@ -1,14 +1,16 @@
-import Popper from "popper.js";
-import * as bootstrap from 'bootstrap';
+import $ from 'jquery';
+import Popper from 'popper.js';
+import 'bootstrap';
+
+// Assign to global scope for Bootstrap 4 plugins to work
+window.$ = $;
+window.jQuery = $;
+window.Popper = Popper;
 
 /**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
+ * You can initialize Bootstrap plugins here if needed, for example:
+ *
+ * $(function () {
+ *     $('[data-toggle="tooltip"]').tooltip();
+ * });
  */
-
-try {
-    window.Popper = Popper;
-} catch (e) {
-    console.log(e);
-}
