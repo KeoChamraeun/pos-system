@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}">
 
 <!-- CoreUI CSS and your app styles with Vite -->
-@vite('resources/sass/app.scss')
+{{-- @vite('resources/sass/app.scss') --}}
 
 <!-- DataTables CSS -->
 <link href="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-1.13.5/b-2.4.1/b-html5-2.4.1/b-print-2.4.1/sl-1.7.0/datatables.min.css" rel="stylesheet">
