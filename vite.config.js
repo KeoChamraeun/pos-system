@@ -13,9 +13,9 @@ export default defineConfig({
         }),
     ],
     server: {
-        host: true,         // Expose to network
-        port: 80,           // Set to port 80 or your desired port
-        strictPort: true    // Fail if port is already taken (optional)
+        host: true,
+        port: 80,
+        strictPort: true,
     },
     build: {
         outDir: 'public/build',
