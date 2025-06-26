@@ -15,15 +15,15 @@ use Modules\Upload\Entities\Upload;
 
 class ProductController extends Controller
 {
-
-    public function index(ProductDataTable $dataTable) {
+    public function index(ProductDataTable $dataTable)
+    {
         abort_if(Gate::denies('access_products'), 403);
 
         return $dataTable->render('product::products.index');
     }
 
-
-    public function create() {
+    public function create()
+    {
         abort_if(Gate::denies('create_products'), 403);
 
         $userId = auth()->id();
@@ -32,10 +32,10 @@ class ProductController extends Controller
         return view('product::products.create', compact('categories'));
     }
 
-
-
-    public function store(StoreProductRequest $request) {
-        $data = $request->except('document');
+    public function store(StoreProductRequest $request)
+    {
+        // Use validated() to only get validated input fields
+        $data = $request->validated();
         $data['user_id'] = auth()->id();
 
         $product = Product::create($data);
@@ -51,24 +51,24 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
-
-
-    public function show(Product $product) {
+    public function show(Product $product)
+    {
         abort_if(Gate::denies('show_products'), 403);
 
         return view('product::products.show', compact('product'));
     }
 
-
-    public function edit(Product $product) {
+    public function edit(Product $product)
+    {
         abort_if(Gate::denies('edit_products'), 403);
 
         return view('product::products.edit', compact('product'));
     }
 
-
-    public function update(UpdateProductRequest $request, Product $product) {
-        $product->update($request->except('document'));
+    public function update(UpdateProductRequest $request, Product $product)
+    {
+        // Use validated() to only get validated input fields
+        $product->update($request->validated());
 
         if ($request->has('document')) {
             if (count($product->getMedia('images')) > 0) {
@@ -93,8 +93,8 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
-
-    public function destroy(Product $product) {
+    public function destroy(Product $product)
+    {
         abort_if(Gate::denies('delete_products'), 403);
 
         $product->delete();
