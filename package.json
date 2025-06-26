@@ -2,24 +2,21 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build",
-        "start": "node index.js"
+        "build": "vite build"
     },
     "devDependencies": {
-        "@coreui/coreui": "^5.4.0",
+        "@coreui/coreui": "^3.4.0",
         "@coreui/icons": "^1.0.1",
         "axios": "^0.21",
         "bootstrap": "^4.6.2",
         "laravel-mix": "^6.0.6",
         "laravel-vite-plugin": "^0.7.8",
-        "sass": "^1.88.0",
-        "vite": "^4.5.14"
+        "popper.js": "^1.12",
+        "sass": "^1.89.2",
+        "vite": "^4.4.7"
     },
     "dependencies": {
-        "@popperjs/core": "^2.11.8",
-        "autoprefixer": "^10.3.1",
-        "jquery": "^3.7.1",
-        "popper.js": "^1.16.1"
+        "autoprefixer": "^10.3.1"
     },
     "type": "module"
 }

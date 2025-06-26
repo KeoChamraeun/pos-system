@@ -1,16 +1,19 @@
 {
   "resources/js/app.js": {
-    "file": "assets/app-4bd38d4a.js",
+    "css": [
+      "app-bbefe35c.css"
+    ],
+    "file": "app-6f09ea19.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
   "resources/js/chart-config.js": {
-    "file": "assets/chart-config-5c99e0a8.js",
+    "file": "chart-config-5c99e0a8.js",
     "isEntry": true,
     "src": "resources/js/chart-config.js"
   },
   "resources/sass/app.scss": {
-    "file": "assets/app-2250156a.css",
+    "file": "app-bbefe35c.css",
     "isEntry": true,
     "src": "resources/sass/app.scss"
   }
