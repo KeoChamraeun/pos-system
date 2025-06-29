@@ -1,9 +1,9 @@
 {
   "resources/js/app.js": {
     "css": [
-      "app-bbefe35c.css"
+      "app-2250156a.css"
     ],
-    "file": "app-6f09ea19.js",
+    "file": "app-27c7fe89.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
@@ -13,7 +13,7 @@
     "src": "resources/js/chart-config.js"
   },
   "resources/sass/app.scss": {
-    "file": "app-bbefe35c.css",
+    "file": "app-2250156a.css",
     "isEntry": true,
     "src": "resources/sass/app.scss"
   }
